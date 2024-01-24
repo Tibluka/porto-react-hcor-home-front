@@ -1,6 +1,10 @@
+import "design-system-react/src/assets/icons/style.css";
+import "design-system-react/src/styles/keen-slider.min.css";
+import "design-system-react/src/styles/porto-fonts.css";
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
+
 
 const openSans = Open_Sans({
   weight: ['300', '400', '500', '600', '700'],
