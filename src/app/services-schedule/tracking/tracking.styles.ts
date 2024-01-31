@@ -22,11 +22,9 @@ export const FormCustomRadio = styled.div`
   }
 
   input:checked:after {
-    content: "";
+    content: url('../../../../public/porto-images/Porto-radio-checked.svg');
     position: absolute;
     top: 0;
-    background: white;
-    border: 2px solid #5F5F5F;
     width: 20px;
     height: 20px;
     border-radius: 50%;

@@ -12,19 +12,19 @@ const RequestSchedule: React.FC = () => {
 
     const [cardList] = useState([
         {
-            cardIcon: require('../../../public/Porto-ic-car-front-check.svg'),
+            cardIcon: require('../../../../public/porto-images/Porto-ic-car-front-check.svg'),
             cardTitle: 'Vistoria Prévia',
             cardSubtitle: 'Realize agendamento com ou sem proposta.',
             route: ''
         },
         {
-            cardIcon: require('../../../public/Porto-ic-car-pin.svg'),
+            cardIcon: require('../../../../public/porto-images/Porto-ic-car-pin.svg'),
             cardTitle: 'Rastreador',
             cardSubtitle: 'Realize agendamento Domiciliar ou em Posto.',
             route: 'services-schedule/tracking'
         },
         {
-            cardIcon: require('../../../public/Porto-ic-tools.svg'),
+            cardIcon: require('../../../../public/porto-images/Porto-ic-tools.svg'),
             cardTitle: 'Outros Serviços',
             cardSubtitle: 'Serviços disponíveis para Posto.',
             route: ''
