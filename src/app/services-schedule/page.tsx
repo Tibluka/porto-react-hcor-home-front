@@ -1,23 +1,43 @@
 'use client'
+import { tab } from '@/components/micros/Tabs/tabs.types';
+import RequestSchedule from '@/components/sections/RequestSchedule';
 import { Typography } from 'design-system-react';
 import React from "react";
-import styles from "../services-schedule/services-schedule.module.css";
+import Tabs from '../../components/micros/Tabs';
+import * as S from './services-schedule.styles';
 
 export default function ServicesSchedule() {
-    return (
-        <main className={styles.main}>
 
-            <Typography as="h1" type="Title4" style={{ marginBottom: 8 }}>
+    const tabs: tab[] = [
+        {
+            title: 'Visão geral',
+            content: (
+                <>
+                    <RequestSchedule />
+                </>
+            ),
+        },
+        {
+            title: 'Financeiro',
+            content: (
+                <>
+                    {/* <Installments /> */}
+                </>
+            ),
+        },
+    ];
+
+    return (
+
+        <S.Container>
+            <Typography as="h1" type="Title4" style={{ marginBottom: 8, fontSize: 32, lineHeight: '36px' }}>
                 Agendamento de serviços
 			</Typography>
-            <h1>teste</h1>
-            <Typography as="p" type="Caption" style={{ color: '#808080' }}>
+            <Typography as="p" type="Caption" style={{ color: '#808080', fontSize: 16, lineHeight: '24px' }}>
                 Solicite ou consulte agendamento de serviços.
 			</Typography>
 
-            <div>
-
-            </div>
-        </main>
+            <Tabs tabs={tabs} />
+        </S.Container>
     );
 }

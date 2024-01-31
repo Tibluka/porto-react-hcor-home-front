@@ -12,28 +12,14 @@
     "design-system-react": "file:design-system-react-3.0.1.tgz",
     "next": "^14.1.0",
     "react": "^18",
-    "react-dom": "^18",
-    "styled-components": "^6.1.8"
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^7.3.2",
-    "@storybook/addon-interactions": "^7.3.2",
-    "@storybook/addon-links": "^7.3.2",
-    "@storybook/addon-onboarding": "^1.0.8",
-    "@storybook/blocks": "^7.3.2",
-    "@storybook/manager-api": "^7.3.2",
-    "@storybook/nextjs": "^7.3.2",
-    "@storybook/react": "^7.3.2",
-    "@storybook/testing-library": "^0.2.0",
-    "@storybook/theming": "^7.3.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@types/styled-components": "^5.1.26",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
-    "jest-styled-components": "^7.1.1",
-    "storybook": "^7.3.2",
     "typescript": "^5"
   }
 }
