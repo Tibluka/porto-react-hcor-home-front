@@ -32,7 +32,6 @@ const RequestSchedule: React.FC = () => {
     ])
 
     function accessCard(card: any) {
-        debugger
         router.push(card.route);
     }
 

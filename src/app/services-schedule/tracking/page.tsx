@@ -1,15 +1,18 @@
 
 'use client'
-import { Typography } from "design-system-react";
+import { Typography, Button, Stepper } from "design-system-react";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import Posto from "./components/Posto";
 import * as S from './tracking.styles';
 
 export default function Tracking() {
-    const [selectedOption, setSelectedOption] = useState(null);
+    const router = useRouter();
+    const [selectedOption, setSelectedOption] = useState(1);
 
     const options = [
-        { value: 'posto', label: 'Posto' },
-        { value: 'domiciliar', label: 'Domiciliar' },
+        { value: 1, label: 'Posto' },
+        { value: 2, label: 'Domiciliar' },
     ];
 
 
@@ -38,14 +41,33 @@ export default function Tracking() {
                             checked={selectedOption === option.value}
                             onChange={() => handleOptionChange(option.value)}
                         />
-                        <span>{option.label}</span>
+                        <S.Radio selected={selectedOption === option.value}>
+                            {option.label}
+                        </S.Radio>
                     </label>
                 ))}
             </S.FormCustomRadio>
 
             <S.Container>
-
+                {(() => {
+                    switch (selectedOption) {
+                        case 1:
+                            return <Posto />;
+                        case 2:
+                            return null;
+                        default:
+                            return null;
+                    }
+                })()}
             </S.Container>
+
+            <Button
+                styles="primary"
+                variant="insurance"
+                children="Solicitar agendamento"
+                size="small"
+                onClick={() => router.push('tracking/request-schedule')}
+                style={{ fontSize: 16 }} />
 
         </>
     );

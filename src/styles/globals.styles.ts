@@ -7,3 +7,7 @@ export const Card = styled.div`
 	background: var(--Neutras-White, #FFF);
 	padding: 10px;
 `;
+
+export const FieldDropdown = styled.select`
+	
+`
