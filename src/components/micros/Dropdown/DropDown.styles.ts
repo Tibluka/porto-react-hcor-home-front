@@ -61,7 +61,9 @@ export const DropdDownList = styled.div`
 		width: 100%;
 		grid-template-columns: 1fr;
 		background: white;
-
+		max-height: 245px;
+		overflow: hidden;
+		overflow-y: scroll;
 		.option {
 			height: 48px;
 			cursor: pointer;

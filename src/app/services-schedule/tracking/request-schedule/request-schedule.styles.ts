@@ -12,3 +12,8 @@ export const Radio = styled.span<RadioProps>`
     `};
 
 `
+
+export const Action = styled.div`
+	display: flex;
+	justify-content: flex-end;
+`;

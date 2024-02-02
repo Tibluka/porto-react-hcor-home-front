@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { DropdownProps } from './DropDown.types';
 import * as S from './DropDown.styles';
 import Image from 'next/image';
@@ -18,13 +18,34 @@ export const Dropdown = ({
 }: DropdownProps) => {
 	const [dropdownActive, setDropdownActive] = useState(false);
 
+	const containerRef = useRef<any>(null);
+
 	function selectOption(selectedOption: any) {
 		onClick(selectedOption);
 		setDropdownActive(false);
 	}
 
+	const closeDropdown = () => {
+		setDropdownActive(false);
+	};
+
+	useEffect(() => {
+		const handleClickOutside = (event: any) => {
+			if (containerRef.current && !containerRef.current.contains(event.target)) {
+				closeDropdown();
+			}
+		};
+
+		document.addEventListener('click', handleClickOutside);
+
+		return () => {
+			// Remove o event listener ao desmontar o componente
+			document.removeEventListener('click', handleClickOutside);
+		};
+	}, []);
+
 	return (
-		<S.Container width={width}>
+		<S.Container ref={containerRef} width={width}>
 			<S.Select active={dropdownActive} onClick={() => setDropdownActive(!dropdownActive)}>
 				<S.Label labelActive={selectedOption ? true : false}>
 					{label}
