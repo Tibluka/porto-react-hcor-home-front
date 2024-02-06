@@ -8,7 +8,7 @@ import RequestScheduleClientData from '@/components/sections/RequestScheduleClie
 import RequestScheduleGeneralData from '@/components/sections/RequestScheduleGeneralData';
 import RequestScheduleReviewData from '@/components/sections/RequestScheduleReviewData';
 import RequestScheduleVehicleData from '@/components/sections/RequestScheduleVehicleData';
-import { Button, Typography } from 'design-system-react';
+import { Button, Modal, Typography } from 'design-system-react';
 import { useRouter } from 'next/navigation';
 import React, { useState } from "react";
 import * as S from './request-schedule.styles';
@@ -54,9 +54,10 @@ export default function RequestSchedule() {
             setStep: setStep
         }
     )
+    const [isOpen, setIsOpen] = useState(false);
 
     function setStep(step: number) {
-        if (step > stepper.step) {
+        if (step > stepper.step && step <= stepper.totalSteps) {
             stepper.content.forEach((s, index) => {
                 if (index < step) {
                     s.type = 'done';
@@ -70,6 +71,10 @@ export default function RequestSchedule() {
                     s.type = 'active';
                 }
             })
+        } else if (step > stepper.totalSteps) {
+            debugger
+
+
         } else return;
         stepper.content[step - 1].type = 'active';
 
@@ -83,7 +88,7 @@ export default function RequestSchedule() {
     }
 
     return (
-        <>
+        <S.Container>
             <Typography
                 as="h1"
                 type="Title6"
@@ -146,12 +151,12 @@ export default function RequestSchedule() {
                     iconSide="right"
                     icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
                     size="small"
-                    onClick={() => {
-                        if (stepper.step < stepper.totalSteps) setStep(stepper.step + 1)
-                    }}
+                    onClick={() => setStep(stepper.step + 1)}
                     style={{ fontSize: 16, fontWeight: 700, lineHeight: '0' }}
                 />
             </S.Action>
-        </>
+
+            <Modal mode="light" title="Title" isOpen={true} setIsOpen={() => setIsOpen(false)} />
+        </S.Container>
     );
 }

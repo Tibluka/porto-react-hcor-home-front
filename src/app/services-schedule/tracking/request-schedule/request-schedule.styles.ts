@@ -2,8 +2,7 @@ import styled, { css } from 'styled-components';
 import { RadioProps } from './request-schedule.types';
 
 export const Container = styled.div`
-  margin-top: 32px;
-  margin-bottom: 48px;
+
 `;
 
 export const Radio = styled.span<RadioProps>`
