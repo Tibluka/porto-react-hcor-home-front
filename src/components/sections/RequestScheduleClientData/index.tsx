@@ -14,12 +14,7 @@ const RequestScheduleClientData: React.FC = () => {
         phone: ''
     });
 
-    function onClick(dispatch: React.Dispatch<SelectOptionProps>, value: SelectOptionProps) {
-        dispatch(value);
-    }
-
     const handleInputChange = (event: any) => {
-        debugger
         const { name, value } = event.target;
         setUserData({ ...userData, [name]: value });
     };

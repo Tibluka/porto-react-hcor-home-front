@@ -19,28 +19,28 @@ export default function RequestSchedule() {
         {
             content: [
                 {
-                    content: function () {
+                    component: function () {
                         return <RequestScheduleGeneralData />
                     },
                     type: 'active',
                     stepDescription: 'Dados gerais'
                 },
                 {
-                    content: function () {
+                    component: function () {
                         return <RequestScheduleClientData />
                     },
                     type: 'todo',
                     stepDescription: 'Dados do cliente'
                 },
                 {
-                    content: function () {
+                    component: function () {
                         return <RequestScheduleVehicleData />
                     },
                     type: 'todo',
                     stepDescription: 'Dados do veículo'
                 },
                 {
-                    content: function () {
+                    component: function () {
                         return <RequestScheduleReviewData />
                     },
                     type: 'todo',
@@ -140,7 +140,7 @@ export default function RequestSchedule() {
                         /> : null
                 }
                 <Button
-                    children="Próximo"
+                    children={stepper.step === stepper.totalSteps ? 'Finalizar agendamento' : 'Próximo'}
                     variant="insurance"
                     styles="primary"
                     iconSide="right"

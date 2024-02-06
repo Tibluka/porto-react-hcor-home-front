@@ -42,7 +42,7 @@ export const Stepper = ({
             <S.Content>
                 {
                     content.filter(f => f.type === 'active').map((func: StepContentProps) => (
-                        <>{func.content()}</>
+                        <>{func.component()}</>
                     ))
                 }
             </S.Content>

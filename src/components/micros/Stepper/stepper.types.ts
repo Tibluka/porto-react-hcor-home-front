@@ -13,7 +13,7 @@ export declare type StepItemProps = {
 };
 
 export declare type StepContentProps = {
-    content: Function;
+    component: Function;
     type: 'done' | 'active' | 'todo';
     stepDescription: string;
 }
