@@ -1,8 +1,18 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+
+`;
+
+export const InputContainer = styled.div`
+	margin-right: 20px;
+`;
+
+export const Section = styled.div`
 	display: flex;
-	flex-direction: row;
-	width: 100%;
-	height: 100%;
+	margin-bottom: 38px;
+`;
+
+export const FormInput = styled.input`
+	
 `;

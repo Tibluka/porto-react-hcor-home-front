@@ -124,7 +124,7 @@ const RequestScheduleGeneralData: React.FC = () => {
     return (
         <S.Container>
             <Typography as="h4" type="Title6" style={{ fontSize: 20, fontWeight: 500, lineHeight: '24px', marginBottom: 24, marginTop: 24 }}>
-                Dados do cliente
+                Dados gerais
             </Typography>
 
             <S.Section>
@@ -151,7 +151,7 @@ const RequestScheduleGeneralData: React.FC = () => {
             </S.Section>
 
             <Typography as="h4" type="Title6" style={{ fontSize: 20, fontWeight: 500, lineHeight: '24px', marginBottom: 24, marginTop: 24 }}>
-                Dados do cliente
+                Local
             </Typography>
 
             <S.Section>

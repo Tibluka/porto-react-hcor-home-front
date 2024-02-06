@@ -7,7 +7,7 @@ export const Container = styled.div<DropdownWidthStyle>`
 	height: 48px;
 		cursor: pointer;
 		position: relative;
-		width: ${width}px;
+		width: ${width ? width + 'px' : '100%'};
 	`}
 	
 `;
