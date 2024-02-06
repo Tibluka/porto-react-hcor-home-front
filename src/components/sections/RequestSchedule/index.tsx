@@ -27,7 +27,7 @@ const RequestSchedule: React.FC = () => {
             cardIcon: require('../../../../public/porto-images/Porto-ic-tools.svg'),
             cardTitle: 'Outros Serviços',
             cardSubtitle: 'Serviços disponíveis para Posto.',
-            route: ''
+            route: 'services-schedule/other-services'
         }
     ])
 

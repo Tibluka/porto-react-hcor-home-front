@@ -156,7 +156,7 @@ export default function RequestSchedule() {
                 />
             </S.Action>
 
-            <Modal mode="light" title="Title" isOpen={true} setIsOpen={() => setIsOpen(false)} />
+            <Modal mode="light" title="Title" isOpen={false} setIsOpen={() => setIsOpen(false)} />
         </S.Container>
     );
 }
