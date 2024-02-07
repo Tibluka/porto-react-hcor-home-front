@@ -45,6 +45,7 @@ export type InputProps = {
 
 export type LabelActive = {
 	labelActive: boolean;
+	invalid?: boolean;
 }
 
 export type DropdownWidthStyle ={ 

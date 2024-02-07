@@ -67,7 +67,7 @@ const RequestSchedule: React.FC = () => {
                                 children="Selecionar"
                                 size="small"
                                 onClick={() => accessCard(card)}
-                                style={{ fontSize: 16, width: '100%' }} />
+                                style={{ fontSize: 16, height: 48, width: '100%' }} />
 
                         </Card>
 

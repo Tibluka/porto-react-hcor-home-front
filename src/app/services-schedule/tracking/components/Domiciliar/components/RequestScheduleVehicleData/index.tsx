@@ -1,13 +1,14 @@
 import InputText from '@/components/micros/InputText';
+import { StepperProps } from '@/components/micros/Stepper/stepper.types';
 import { Typography } from 'design-system-react';
 import React, { useState } from 'react';
 import * as S from './requestScheduleVehicleData.styles';
 // import { Container } from './styles';
 
-const RequestScheduleVehicleData: React.FC = () => {
+const RequestScheduleVehicleData = ({ setStep }: any) => {
     const [vehicleData, setUserData] = useState<any>({
-        licensePlate: '',
-        chassi: ''
+        licensePlate: { value: '', errors: null, valid: false },
+        chassi: { value: '', errors: null, valid: false }
     });
 
     const handleInputChange = (event: any) => {
@@ -22,9 +23,9 @@ const RequestScheduleVehicleData: React.FC = () => {
 
             <S.Section>
                 <S.InputContainer>
-                    <InputText width={250} label="Placa" name="licensePlate" value={vehicleData.licensePlate} onChange={handleInputChange} />
+                    <InputText disabled={!vehicleData.licensePlate.valid} width={250} label="Placa" name="licensePlate" value={vehicleData.licensePlate.value} onChange={handleInputChange} />
                 </S.InputContainer>
-                <InputText label="Chassi" name="chassi" value={vehicleData.chassi} onChange={handleInputChange} />
+                <InputText disabled={!vehicleData.chassi.valid} label="Chassi" name="chassi" value={vehicleData.chassi.value} onChange={handleInputChange} />
             </S.Section>
         </S.Container>
     );

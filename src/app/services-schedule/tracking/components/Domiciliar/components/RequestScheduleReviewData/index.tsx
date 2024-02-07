@@ -1,15 +1,16 @@
+import { StepperProps } from '@/components/micros/Stepper/stepper.types';
 import { Typography } from 'design-system-react';
 import React from 'react';
 import * as S from './requestScheduleReviewData.styles';
 
 // import { Container } from './styles';
 
-const RequestScheduleReviewData: React.FC = () => {
+const RequestScheduleReviewData = ({ setStep }: any) => {
 
     return (
         <S.Container>
 
-            <Typography as="h4" type="Title5" style={{ fontSize: 24, fontWeight: 700, lineHeight: '24px', marginBottom: 32, marginTop: 24 }}>
+            <Typography as="h4" type="Title5" style={{ fontSize: 24, fontWeight: 600, lineHeight: '28px', marginBottom: 32, marginTop: 24 }}>
                 Revise os dados
             </Typography>
 
@@ -20,7 +21,7 @@ const RequestScheduleReviewData: React.FC = () => {
 
                 <S.Flex>
                     <S.Column>
-                        <Typography as="p" type="Body1" style={{ fontSize: 14, fontWeight: 300, lineHeight: '18px', marginBottom: 4 }}>
+                        <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
                             Nome do cliente
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
@@ -28,7 +29,7 @@ const RequestScheduleReviewData: React.FC = () => {
                         </Typography>
                     </S.Column>
                     <S.Column>
-                        <Typography as="p" type="Body1" style={{ fontSize: 14, fontWeight: 300, lineHeight: '18px', marginBottom: 4 }}>
+                        <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
                             CPF
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
@@ -45,7 +46,7 @@ const RequestScheduleReviewData: React.FC = () => {
 
                 <S.Flex>
                     <S.Column>
-                        <Typography as="p" type="Body1" style={{ fontSize: 14, fontWeight: 300, lineHeight: '18px', marginBottom: 4 }}>
+                        <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
                             Cidade
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
@@ -53,7 +54,7 @@ const RequestScheduleReviewData: React.FC = () => {
                         </Typography>
                     </S.Column>
                     <S.Column>
-                        <Typography as="p" type="Body1" style={{ fontSize: 14, fontWeight: 300, lineHeight: '18px', marginBottom: 4 }}>
+                        <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
                             UF
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
@@ -61,7 +62,7 @@ const RequestScheduleReviewData: React.FC = () => {
                         </Typography>
                     </S.Column>
                     <S.Column>
-                        <Typography as="p" type="Body1" style={{ fontSize: 14, fontWeight: 300, lineHeight: '18px', marginBottom: 4 }}>
+                        <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
                             Bairro
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
@@ -69,7 +70,7 @@ const RequestScheduleReviewData: React.FC = () => {
                         </Typography>
                     </S.Column>
                     <S.Column>
-                        <Typography as="p" type="Body1" style={{ fontSize: 14, fontWeight: 300, lineHeight: '18px', marginBottom: 4 }}>
+                        <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
                             Posto
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
@@ -86,7 +87,7 @@ const RequestScheduleReviewData: React.FC = () => {
 
                 <S.Flex>
                     <S.Column>
-                        <Typography as="p" type="Body1" style={{ fontSize: 14, fontWeight: 300, lineHeight: '18px', marginBottom: 4 }}>
+                        <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
                             E-mail
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
@@ -94,7 +95,7 @@ const RequestScheduleReviewData: React.FC = () => {
                         </Typography>
                     </S.Column>
                     <S.Column>
-                        <Typography as="p" type="Body1" style={{ fontSize: 14, fontWeight: 300, lineHeight: '18px', marginBottom: 4 }}>
+                        <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
                             Telefone
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
@@ -110,7 +111,7 @@ const RequestScheduleReviewData: React.FC = () => {
 
                 <S.Flex>
                     <S.Column>
-                        <Typography as="p" type="Body1" style={{ fontSize: 14, fontWeight: 300, lineHeight: '18px', marginBottom: 4 }}>
+                        <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
                             Placa
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
@@ -118,7 +119,7 @@ const RequestScheduleReviewData: React.FC = () => {
                         </Typography>
                     </S.Column>
                     <S.Column>
-                        <Typography as="p" type="Body1" style={{ fontSize: 14, fontWeight: 300, lineHeight: '18px', marginBottom: 4 }}>
+                        <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
                             Chassi
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
@@ -135,7 +136,7 @@ const RequestScheduleReviewData: React.FC = () => {
 
                 <S.Flex>
                     <S.Column>
-                        <Typography as="p" type="Body1" style={{ fontSize: 14, fontWeight: 300, lineHeight: '18px', marginBottom: 4 }}>
+                        <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
                             SUSEP
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
@@ -143,7 +144,7 @@ const RequestScheduleReviewData: React.FC = () => {
                         </Typography>
                     </S.Column>
                     <S.Column>
-                        <Typography as="p" type="Body1" style={{ fontSize: 14, fontWeight: 300, lineHeight: '18px', marginBottom: 4 }}>
+                        <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
                             Empresa
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
@@ -151,7 +152,7 @@ const RequestScheduleReviewData: React.FC = () => {
                         </Typography>
                     </S.Column>
                     <S.Column>
-                        <Typography as="p" type="Body1" style={{ fontSize: 14, fontWeight: 300, lineHeight: '18px', marginBottom: 4 }}>
+                        <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
                             Data
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
@@ -159,7 +160,7 @@ const RequestScheduleReviewData: React.FC = () => {
                         </Typography>
                     </S.Column>
                     <S.Column>
-                        <Typography as="p" type="Body1" style={{ fontSize: 14, fontWeight: 300, lineHeight: '18px', marginBottom: 4 }}>
+                        <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
                             Período
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
@@ -169,7 +170,7 @@ const RequestScheduleReviewData: React.FC = () => {
                 </S.Flex>
                 <S.Flex style={{ marginTop: 24 }}>
                     <S.Column>
-                        <Typography as="p" type="Body1" style={{ fontSize: 14, fontWeight: 300, lineHeight: '18px', marginBottom: 4 }}>
+                        <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
                             Observações
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>

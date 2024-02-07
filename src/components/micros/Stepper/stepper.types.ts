@@ -16,6 +16,7 @@ export declare type StepContentProps = {
     component: Function;
     type: 'done' | 'active' | 'todo';
     stepDescription: string;
+    stepFormValid: boolean;
 }
 
 export declare type StepperTotalSteps = {

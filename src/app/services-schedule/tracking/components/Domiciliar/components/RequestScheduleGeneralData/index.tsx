@@ -1,13 +1,14 @@
 import { Dropdown } from '@/components/micros/Dropdown';
 import { SelectOptionProps } from '@/components/micros/Dropdown/DropDown.types';
 import { Icon } from '@/components/micros/Icon';
+import { StepperProps } from '@/components/micros/Stepper/stepper.types';
 import { Button, Typography } from 'design-system-react';
 import React, { useState } from 'react';
 import * as S from './requestScheduleGeneralData.styles';
 
 // import { Container } from './styles';
 
-const RequestScheduleGeneralData: React.FC = () => {
+const RequestScheduleGeneralData = ({ setStep }: any) => {
     const [company, setCompany] = useState<SelectOptionProps>();
     const [vehicleType, setVehicleType] = useState<SelectOptionProps>();
     const [uf, setUf] = useState<SelectOptionProps>();

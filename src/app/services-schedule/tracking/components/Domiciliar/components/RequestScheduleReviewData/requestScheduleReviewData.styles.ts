@@ -6,7 +6,7 @@ export const Container = styled.div`
 
 export const DataBlock = styled.div`
 	padding-bottom: 32px;
-	border-bottom: 2px solid #B3B3B3;
+	border-bottom: 1px solid #E0E0E0;
 	margin-bottom: 32px;
 `;
 

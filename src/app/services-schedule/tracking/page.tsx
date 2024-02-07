@@ -32,6 +32,7 @@ export default function Tracking() {
             <Typography as="label" type="Label" style={{ marginBottom: 8, fontSize: 12, lineHeight: '24px' }}>
                 Selecione o local do serviço
             </Typography>
+            
             <S.FormCustomRadio>
                 {options.map((option) => (
                     <label key={option.value}>
@@ -66,8 +67,8 @@ export default function Tracking() {
                 variant="insurance"
                 children="Solicitar agendamento"
                 size="small"
-                onClick={() => router.push('tracking/request-schedule')}
-                style={{ fontSize: 16 }} />
+                onClick={() => router.push(`tracking/request-schedule?solicitationType=${selectedOption}`)}
+                style={{ fontSize: 16, height: 48 }} />
 
         </>
     );

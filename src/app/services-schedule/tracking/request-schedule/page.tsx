@@ -1,20 +1,20 @@
 'use client'
-import content from '*.bmp';
 import { Icon } from '@/components/micros/Icon';
 import { Stepper } from '@/components/micros/Stepper';
 import { StepperProps } from '@/components/micros/Stepper/stepper.types';
-import { tab } from '@/components/micros/Tabs/tabs.types';
-import RequestScheduleClientData from '@/components/sections/RequestScheduleClientData';
-import RequestScheduleGeneralData from '@/components/sections/RequestScheduleGeneralData';
-import RequestScheduleReviewData from '@/components/sections/RequestScheduleReviewData';
-import RequestScheduleVehicleData from '@/components/sections/RequestScheduleVehicleData';
 import { Button, Modal, Typography } from 'design-system-react';
-import { useRouter } from 'next/navigation';
-import React, { useState } from "react";
+import { useRouter, useSearchParams } from 'next/navigation';
+import React, { useEffect, useState } from "react";
+import RequestScheduleClientData from '../components/Domiciliar/components/RequestScheduleClientData';
+import RequestScheduleGeneralData from '../components/Domiciliar/components/RequestScheduleGeneralData';
+import RequestScheduleReviewData from '../components/Domiciliar/components/RequestScheduleReviewData';
+import RequestScheduleServicePlace from '../components/Domiciliar/components/RequestScheduleServicePlace';
+import RequestScheduleVehicleData from '../components/Domiciliar/components/RequestScheduleVehicleData';
 import * as S from './request-schedule.styles';
 
 export default function RequestSchedule() {
     const router = useRouter();
+    const params = useSearchParams().get("solicitationType");
     const [stepper, setStepper] = useState<StepperProps>(
         {
             content: [
@@ -23,28 +23,32 @@ export default function RequestSchedule() {
                         return <RequestScheduleGeneralData />
                     },
                     type: 'active',
-                    stepDescription: 'Dados gerais'
+                    stepDescription: 'Dados gerais',
+                    stepFormValid: false
                 },
                 {
                     component: function () {
                         return <RequestScheduleClientData />
                     },
                     type: 'todo',
-                    stepDescription: 'Dados do cliente'
+                    stepDescription: 'Dados do cliente',
+                    stepFormValid: false
                 },
                 {
                     component: function () {
                         return <RequestScheduleVehicleData />
                     },
                     type: 'todo',
-                    stepDescription: 'Dados do veículo'
+                    stepDescription: 'Dados do veículo',
+                    stepFormValid: false
                 },
                 {
                     component: function () {
                         return <RequestScheduleReviewData />
                     },
                     type: 'todo',
-                    stepDescription: 'Revise os dados'
+                    stepDescription: 'Revise os dados',
+                    stepFormValid: false
                 },
             ],
             step: 1,
@@ -54,6 +58,7 @@ export default function RequestSchedule() {
             setStep: setStep
         }
     )
+
     const [isOpen, setIsOpen] = useState(false);
 
     function setStep(step: number) {
@@ -74,7 +79,7 @@ export default function RequestSchedule() {
         } else if (step > stepper.totalSteps) {
             debugger
 
-
+            return;
         } else return;
         stepper.content[step - 1].type = 'active';
 
@@ -86,6 +91,65 @@ export default function RequestSchedule() {
 
 
     }
+
+    useEffect(() => {
+        const setup = () => {
+            if (params && params == '2') {
+                setStepper(
+                    {
+                        content: [
+                            {
+                                component: function () {
+                                    return <RequestScheduleServicePlace stepper={stepper} setStep={setStep} />
+                                },
+                                type: 'active',
+                                stepDescription: 'Local do serviço',
+                                stepFormValid: false
+                            },
+                            {
+                                component: function () {
+                                    return <RequestScheduleGeneralData />
+                                },
+                                type: 'todo',
+                                stepDescription: 'Dados gerais',
+                                stepFormValid: false
+                            },
+                            {
+                                component: function () {
+                                    return <RequestScheduleClientData />
+                                },
+                                type: 'todo',
+                                stepDescription: 'Dados do cliente',
+                                stepFormValid: false
+                            },
+                            {
+                                component: function () {
+                                    return <RequestScheduleVehicleData />
+                                },
+                                type: 'todo',
+                                stepDescription: 'Dados do veículo',
+                                stepFormValid: false
+                            },
+                            {
+                                component: function () {
+                                    return <RequestScheduleReviewData />
+                                },
+                                type: 'todo',
+                                stepDescription: 'Revise os dados',
+                                stepFormValid: false
+                            },
+                        ],
+                        step: 1,
+                        stepName: 'Local do serviço',
+                        totalSteps: 5,
+                        nextStep: '',
+                        setStep: setStep
+                    }
+                )
+            }
+        }
+        setup()
+    }, []);
 
     return (
         <S.Container>
@@ -119,42 +183,6 @@ export default function RequestSchedule() {
                 totalSteps={stepper.totalSteps}
                 setStep={setStep}
             />
-
-            <S.Action>
-                <Button
-                    children="Cancelar"
-                    variant="insurance"
-                    styles="ghost"
-                    size="small"
-                    onClick={router.back}
-                    style={{ fontSize: 16, fontWeight: 700, lineHeight: '20px', marginRight: 32 }}
-                />
-                {
-                    stepper.step > 1 ?
-                        <Button
-                            children="Voltar"
-                            variant="insurance"
-                            styles="secondary"
-                            size="small"
-                            iconSide="left"
-                            onClick={() => {
-                                if (stepper.step > 1) setStep(stepper.step - 1)
-                            }}
-                            icon={<Icon size={20} color="primary" icon="Porto-ic-arrow-left" />}
-                            style={{ fontSize: 16, fontWeight: 700, lineHeight: '0', marginRight: 32 }}
-                        /> : null
-                }
-                <Button
-                    children={stepper.step === stepper.totalSteps ? 'Finalizar agendamento' : 'Próximo'}
-                    variant="insurance"
-                    styles="primary"
-                    iconSide="right"
-                    icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
-                    size="small"
-                    onClick={() => setStep(stepper.step + 1)}
-                    style={{ fontSize: 16, fontWeight: 700, lineHeight: '0' }}
-                />
-            </S.Action>
 
             <Modal mode="light" title="Title" isOpen={false} setIsOpen={() => setIsOpen(false)} />
         </S.Container>
