@@ -1,11 +1,11 @@
 import { StepperProps } from '@/components/micros/Stepper/stepper.types';
 import { Typography } from 'design-system-react';
 import React from 'react';
-import * as S from './requestScheduleReviewData.styles';
+import * as S from './requestScheduleReviewDataDomiciliar.styles';
 
 // import { Container } from './styles';
 
-const RequestScheduleReviewData = ({ setStep }: any) => {
+const RequestScheduleReviewDataDomiciliar = ({ setStep }: any) => {
 
     return (
         <S.Container>
@@ -183,4 +183,4 @@ const RequestScheduleReviewData = ({ setStep }: any) => {
     );
 }
 
-export default RequestScheduleReviewData;
+export default RequestScheduleReviewDataDomiciliar;

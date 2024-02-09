@@ -3,11 +3,11 @@ import InputText from '@/components/micros/InputText';
 import { StepperProps } from '@/components/micros/Stepper/stepper.types';
 import { Typography } from 'design-system-react';
 import React, { useState } from 'react';
-import * as S from './requestScheduleClientData.styles';
+import * as S from './requestScheduleClientDataPosto.styles';
 
 // import { Container } from './styles';
 
-const RequestScheduleClientData = ({ setStep }: any) => {
+const RequestScheduleClientDataPosto = ({ setStep }: any) => {
     const [userData, setUserData] = useState<any>({
         cpfCnpj: { value: '', errors: null, valid: false },
         nameEntity: { value: '', errors: null, valid: false },
@@ -49,4 +49,4 @@ const RequestScheduleClientData = ({ setStep }: any) => {
     );
 }
 
-export default RequestScheduleClientData;
+export default RequestScheduleClientDataPosto;

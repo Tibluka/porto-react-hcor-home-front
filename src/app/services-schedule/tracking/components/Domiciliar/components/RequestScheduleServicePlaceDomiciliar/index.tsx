@@ -4,11 +4,11 @@ import useFormValidation from '@/hooks/userFormValidator';
 import { Button, Typography } from 'design-system-react';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import * as S from './requestScheduleServicePlace.styles';
+import * as S from './requestScheduleServicePlaceDomiciliar.styles';
 
 // import { Container } from './styles';
 
-const RequestScheduleServicePlace = ({ stepper, setStep }: any) => {
+const RequestScheduleServicePlaceDomiciliar = ({ stepper, setStep }: any) => {
     const router = useRouter();
 
     const { handleChange, handleSubmit, values, errors } = useFormValidation(
@@ -100,4 +100,4 @@ const RequestScheduleServicePlace = ({ stepper, setStep }: any) => {
     );
 }
 
-export default RequestScheduleServicePlace;
+export default RequestScheduleServicePlaceDomiciliar;

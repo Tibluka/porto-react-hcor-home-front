@@ -4,11 +4,11 @@ import { Icon } from '@/components/micros/Icon';
 import { StepperProps } from '@/components/micros/Stepper/stepper.types';
 import { Button, Typography } from 'design-system-react';
 import React, { useState } from 'react';
-import * as S from './requestScheduleGeneralData.styles';
+import * as S from './requestScheduleGeneralDataDomiciliar.styles';
 
 // import { Container } from './styles';
 
-const RequestScheduleGeneralData = ({ setStep }: any) => {
+const RequestScheduleGeneralDataDomiciliar = ({ setStep }: any) => {
     const [company, setCompany] = useState<SelectOptionProps>();
     const [vehicleType, setVehicleType] = useState<SelectOptionProps>();
     const [uf, setUf] = useState<SelectOptionProps>();
@@ -203,4 +203,4 @@ const RequestScheduleGeneralData = ({ setStep }: any) => {
     );
 }
 
-export default RequestScheduleGeneralData;
+export default RequestScheduleGeneralDataDomiciliar;

@@ -1,15 +1,18 @@
 'use client'
-import { Icon } from '@/components/micros/Icon';
 import { Stepper } from '@/components/micros/Stepper';
 import { StepperProps } from '@/components/micros/Stepper/stepper.types';
-import { Button, Modal, Typography } from 'design-system-react';
+import { Modal, Typography } from 'design-system-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useState } from "react";
-import RequestScheduleClientData from '../components/Domiciliar/components/RequestScheduleClientData';
-import RequestScheduleGeneralData from '../components/Domiciliar/components/RequestScheduleGeneralData';
-import RequestScheduleReviewData from '../components/Domiciliar/components/RequestScheduleReviewData';
-import RequestScheduleServicePlace from '../components/Domiciliar/components/RequestScheduleServicePlace';
-import RequestScheduleVehicleData from '../components/Domiciliar/components/RequestScheduleVehicleData';
+import RequestScheduleClientDataDomiciliar from '../components/Domiciliar/components/RequestScheduleClientDataDomiciliar';
+import RequestScheduleGeneralDataDomiciliar from '../components/Domiciliar/components/RequestScheduleGeneralDataDomiciliar';
+import RequestScheduleReviewDataDomiciliar from '../components/Domiciliar/components/RequestScheduleReviewDataDomiciliar';
+import RequestScheduleServicePlaceDomiciliar from '../components/Domiciliar/components/RequestScheduleServicePlaceDomiciliar';
+import RequestScheduleVehicleDataDomiciliar from '../components/Domiciliar/components/RequestScheduleVehicleDataDomiciliar';
+import RequestScheduleClientDataPosto from '../components/Posto/components/RequestScheduleClientDataPosto';
+import RequestScheduleGeneralDataPosto from '../components/Posto/components/RequestScheduleGeneralDataPosto';
+import RequestScheduleReviewDataPosto from '../components/Posto/components/RequestScheduleReviewDataPosto';
+import RequestScheduleVehicleDataPosto from '../components/Posto/components/RequestScheduleVehicleDataPosto';
 import * as S from './request-schedule.styles';
 
 export default function RequestSchedule() {
@@ -20,7 +23,7 @@ export default function RequestSchedule() {
             content: [
                 {
                     component: function () {
-                        return <RequestScheduleGeneralData />
+                        return <RequestScheduleGeneralDataPosto />
                     },
                     type: 'active',
                     stepDescription: 'Dados gerais',
@@ -28,7 +31,7 @@ export default function RequestSchedule() {
                 },
                 {
                     component: function () {
-                        return <RequestScheduleClientData />
+                        return <RequestScheduleClientDataPosto />
                     },
                     type: 'todo',
                     stepDescription: 'Dados do cliente',
@@ -36,7 +39,7 @@ export default function RequestSchedule() {
                 },
                 {
                     component: function () {
-                        return <RequestScheduleVehicleData />
+                        return <RequestScheduleVehicleDataPosto />
                     },
                     type: 'todo',
                     stepDescription: 'Dados do veículo',
@@ -44,7 +47,7 @@ export default function RequestSchedule() {
                 },
                 {
                     component: function () {
-                        return <RequestScheduleReviewData />
+                        return <RequestScheduleReviewDataPosto />
                     },
                     type: 'todo',
                     stepDescription: 'Revise os dados',
@@ -100,7 +103,7 @@ export default function RequestSchedule() {
                         content: [
                             {
                                 component: function () {
-                                    return <RequestScheduleServicePlace stepper={stepper} setStep={setStep} />
+                                    return <RequestScheduleServicePlaceDomiciliar stepper={stepper} setStep={setStep} />
                                 },
                                 type: 'active',
                                 stepDescription: 'Local do serviço',
@@ -108,7 +111,7 @@ export default function RequestSchedule() {
                             },
                             {
                                 component: function () {
-                                    return <RequestScheduleGeneralData />
+                                    return <RequestScheduleGeneralDataDomiciliar />
                                 },
                                 type: 'todo',
                                 stepDescription: 'Dados gerais',
@@ -116,7 +119,7 @@ export default function RequestSchedule() {
                             },
                             {
                                 component: function () {
-                                    return <RequestScheduleClientData />
+                                    return <RequestScheduleClientDataDomiciliar />
                                 },
                                 type: 'todo',
                                 stepDescription: 'Dados do cliente',
@@ -124,7 +127,7 @@ export default function RequestSchedule() {
                             },
                             {
                                 component: function () {
-                                    return <RequestScheduleVehicleData />
+                                    return <RequestScheduleVehicleDataDomiciliar />
                                 },
                                 type: 'todo',
                                 stepDescription: 'Dados do veículo',
@@ -132,7 +135,7 @@ export default function RequestSchedule() {
                             },
                             {
                                 component: function () {
-                                    return <RequestScheduleReviewData />
+                                    return <RequestScheduleReviewDataDomiciliar />
                                 },
                                 type: 'todo',
                                 stepDescription: 'Revise os dados',

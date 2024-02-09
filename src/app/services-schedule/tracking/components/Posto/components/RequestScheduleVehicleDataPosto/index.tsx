@@ -2,10 +2,10 @@ import InputText from '@/components/micros/InputText';
 import { StepperProps } from '@/components/micros/Stepper/stepper.types';
 import { Typography } from 'design-system-react';
 import React, { useState } from 'react';
-import * as S from './requestScheduleVehicleData.styles';
+import * as S from './requestScheduleVehicleDataPosto.styles';
 // import { Container } from './styles';
 
-const RequestScheduleVehicleData = ({ setStep }: any) => {
+const RequestScheduleVehicleDataPosto = ({ setStep }: any) => {
     const [vehicleData, setUserData] = useState<any>({
         licensePlate: { value: '', errors: null, valid: false },
         chassi: { value: '', errors: null, valid: false }
@@ -15,6 +15,7 @@ const RequestScheduleVehicleData = ({ setStep }: any) => {
         const { name, value } = event.target;
         setUserData({ ...vehicleData, [name]: value });
     };
+    
     return (
         <S.Container>
             <Typography as="h4" type="Title6" style={{ fontSize: 20, fontWeight: 500, lineHeight: '24px', marginBottom: 24, marginTop: 24 }}>
@@ -23,12 +24,12 @@ const RequestScheduleVehicleData = ({ setStep }: any) => {
 
             <S.Section>
                 <S.InputContainer>
-                    <InputText disabled={!vehicleData.licensePlate.valid} width={250} label="Placa" name="licensePlate" value={vehicleData.licensePlate.value} onChange={handleInputChange} />
+                    <InputText disabled={!vehicleData.licensePlate.valid} width={250} label="Placa" name="licensePlate" value={vehicleData.licensePlate} onChange={handleInputChange} />
                 </S.InputContainer>
-                <InputText disabled={!vehicleData.chassi.valid} label="Chassi" name="chassi" value={vehicleData.chassi.value} onChange={handleInputChange} />
+                <InputText disabled={!vehicleData.chassi.valid} label="Chassi" name="chassi" value={vehicleData.chassi} onChange={handleInputChange} />
             </S.Section>
         </S.Container>
     );
 }
 
-export default RequestScheduleVehicleData;
+export default RequestScheduleVehicleDataPosto;
