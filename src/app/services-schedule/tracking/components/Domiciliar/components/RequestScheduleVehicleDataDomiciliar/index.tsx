@@ -1,11 +1,17 @@
 import InputText from '@/components/micros/InputText';
 import { StepperProps } from '@/components/micros/Stepper/stepper.types';
-import { Typography } from 'design-system-react';
+import { Button, Typography } from 'design-system-react';
 import React, { useState } from 'react';
 import * as S from './requestScheduleVehicleDataDomiciliar.styles';
+import { useRouter } from 'next/navigation';
+import { StepperStore } from '@/zustand/Stepper';
+import { Icon } from '@/components/micros/Icon';
 // import { Container } from './styles';
 
 const RequestScheduleVehicleDataDomiciliar = ({ setStep }: any) => {
+    const router = useRouter();
+    const { stepper } = StepperStore();
+
     const [vehicleData, setUserData] = useState<any>({
         licensePlate: { value: '', errors: null, valid: false },
         chassi: { value: '', errors: null, valid: false }
@@ -27,6 +33,37 @@ const RequestScheduleVehicleDataDomiciliar = ({ setStep }: any) => {
                 </S.InputContainer>
                 <InputText disabled={!vehicleData.chassi.valid} label="Chassi" name="chassi" value={vehicleData.chassi.value} onChange={handleInputChange} />
             </S.Section>
+
+            <S.Action>
+                <Button
+                    children="Cancelar"
+                    variant="insurance"
+                    styles="ghost"
+                    size="small"
+                    onClick={router.back}
+                    style={{ fontSize: 16, fontWeight: 700, height: 48, lineHeight: '20px', marginRight: 32 }}
+                />
+                <Button
+                    children="Voltar"
+                    variant="insurance"
+                    styles="secondary"
+                    size="small"
+                    iconSide="left"
+                    onClick={() => setStep(3, stepper)}
+                    icon={<Icon size={20} color="primary" icon="Porto-ic-arrow-left" />}
+                    style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0', marginRight: 32 }}
+                />
+                <Button
+                    children="Próximo"
+                    variant="insurance"
+                    styles="primary"
+                    iconSide="right"
+                    icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
+                    size="small"
+                    onClick={() => setStep(5, stepper)}
+                    style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }}
+                />
+            </S.Action>
         </S.Container>
     );
 }

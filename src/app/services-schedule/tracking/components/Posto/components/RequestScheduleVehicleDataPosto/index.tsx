@@ -15,7 +15,11 @@ const RequestScheduleVehicleDataPosto = ({ setStep }: any) => {
 
     const handleInputChange = (event: any) => {
         const { name, value } = event.target;
-        setUserData({ ...vehicleData, [name]: value });
+        setUserData({
+            ...vehicleData, [name]: {
+                value
+            }
+        });
     };
 
     return (
@@ -26,9 +30,20 @@ const RequestScheduleVehicleDataPosto = ({ setStep }: any) => {
 
             <S.Section>
                 <S.InputContainer>
-                    <InputText disabled={!vehicleData.licensePlate.valid} width={250} label="Placa" name="licensePlate" value={vehicleData.licensePlate} onChange={handleInputChange} />
+                    <InputText
+                        width={250}
+                        label="Placa"
+                        name="licensePlate"
+                        value={vehicleData.licensePlate.value}
+                        onChange={handleInputChange}
+                        clearField={() => handleInputChange({ target: { name: "licensePlate", value: "" } })} />
                 </S.InputContainer>
-                <InputText disabled={!vehicleData.chassi.valid} label="Chassi" name="chassi" value={vehicleData.chassi} onChange={handleInputChange} />
+                <InputText
+                    label="Chassi"
+                    name="chassi"
+                    value={vehicleData.chassi.value}
+                    onChange={handleInputChange}
+                    clearField={() => handleInputChange({ target: { name: "chassi", value: "" } })} />
             </S.Section>
 
             <S.Action>

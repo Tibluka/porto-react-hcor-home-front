@@ -19,7 +19,9 @@ const RequestScheduleClientDataPosto = ({ setStep }: any) => {
 
     const handleInputChange = (event: any) => {
         const { name, value } = event.target;
-        setUserData({ ...userData, [name]: value });
+        setUserData({
+            ...userData, [name]: { value }
+        });
     };
 
 
@@ -31,9 +33,21 @@ const RequestScheduleClientDataPosto = ({ setStep }: any) => {
 
             <S.Section>
                 <S.InputContainer>
-                    <InputText disabled={!userData.cpfCnpj.valid} width={250} label="CPF/CNPJ" name="cpfCnpj" value={userData.cpfCnpj} onChange={handleInputChange} />
+                    <InputText
+                        width={250}
+                        label="CPF/CNPJ"
+                        name="cpfCnpj"
+                        value={userData.cpfCnpj.value}
+                        clearField={() => handleInputChange({ target: { name: "cpfCnpj", value: "" } })}
+                        onChange={handleInputChange} />
                 </S.InputContainer>
-                <InputText disabled={!userData.nameEntity.valid} label="Nome/Razão social" name="nameEntity" value={userData.nameEntity} onChange={handleInputChange} />
+                <InputText
+                    label="Nome/Razão social"
+                    name="nameEntity"
+                    value={userData.nameEntity.value}
+                    onChange={handleInputChange}
+                    clearField={() => handleInputChange({ target: { name: "nameEntity", value: "" } })}
+                />
             </S.Section>
 
             <Typography as="h4" type="Title6" style={{ fontSize: 20, fontWeight: 500, lineHeight: '24px', marginBottom: 24, marginTop: 24 }}>
@@ -42,9 +56,23 @@ const RequestScheduleClientDataPosto = ({ setStep }: any) => {
 
             <S.Section>
                 <S.InputContainer>
-                    <InputText disabled={!userData.email.valid} width={396} label="E-mail" name="email" value={userData.email} onChange={handleInputChange} />
+                    <InputText
+                        width={396}
+                        label="E-mail"
+                        name="email"
+                        value={userData.email.value}
+                        onChange={handleInputChange}
+                        clearField={() => handleInputChange({ target: { name: "email", value: "" } })}
+                    />
                 </S.InputContainer>
-                <InputText disabled={!userData.phone.valid} width={250} label="Celular" name="phone" value={userData.phone} onChange={handleInputChange} />
+                <InputText
+                    width={250}
+                    label="Celular"
+                    name="phone"
+                    value={userData.phone.value}
+                    onChange={handleInputChange}
+                    clearField={() => handleInputChange({ target: { name: "phone", value: "" } })}
+                />
             </S.Section>
 
             <S.Action>

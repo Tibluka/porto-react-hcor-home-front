@@ -1,12 +1,16 @@
 import { StepperProps } from '@/components/micros/Stepper/stepper.types';
-import { Typography } from 'design-system-react';
+import { Button, Typography } from 'design-system-react';
 import React from 'react';
 import * as S from './requestScheduleReviewDataDomiciliar.styles';
+import { StepperStore } from '@/zustand/Stepper';
+import { useRouter } from 'next/navigation';
+import { Icon } from '@/components/micros/Icon';
 
 // import { Container } from './styles';
 
 const RequestScheduleReviewDataDomiciliar = ({ setStep }: any) => {
-
+    const { stepper } = StepperStore();
+    const router = useRouter();
     return (
         <S.Container>
 
@@ -179,6 +183,37 @@ const RequestScheduleReviewDataDomiciliar = ({ setStep }: any) => {
                     </S.Column>
                 </S.Flex>
             </S.DataBlock>
+
+            <S.Action>
+                <Button
+                    children="Cancelar"
+                    variant="insurance"
+                    styles="ghost"
+                    size="small"
+                    onClick={router.back}
+                    style={{ fontSize: 16, fontWeight: 700, height: 48, lineHeight: '20px', marginRight: 32 }}
+                />
+                <Button
+                    children="Voltar"
+                    variant="insurance"
+                    styles="secondary"
+                    size="small"
+                    iconSide="left"
+                    onClick={() => setStep(4, stepper)}
+                    icon={<Icon size={20} color="primary" icon="Porto-ic-arrow-left" />}
+                    style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0', marginRight: 32 }}
+                />
+                <Button
+                    children="Próximo"
+                    variant="insurance"
+                    styles="primary"
+                    iconSide="right"
+                    icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
+                    size="small"
+                    onClick={() => setStep(6, stepper)}
+                    style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }}
+                />
+            </S.Action>
         </S.Container>
     );
 }
