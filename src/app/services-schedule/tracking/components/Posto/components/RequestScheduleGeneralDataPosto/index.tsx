@@ -6,11 +6,13 @@ import { Button, Typography } from 'design-system-react';
 import React, { useState } from 'react';
 import * as S from './requestScheduleGeneralDataPosto.styles';
 import { useRouter } from 'next/navigation';
+import { StepperStore } from '@/zustand/Stepper';
 
 // import { Container } from './styles';
 
 const RequestScheduleGeneralDataPosto = ({ setStep }: any) => {
     const router = useRouter();
+    const { stepper } = StepperStore();
     const [company, setCompany] = useState<SelectOptionProps>();
     const [vehicleType, setVehicleType] = useState<SelectOptionProps>();
     const [uf, setUf] = useState<SelectOptionProps>();
@@ -217,7 +219,7 @@ const RequestScheduleGeneralDataPosto = ({ setStep }: any) => {
                     variant="insurance"
                     children="Próximo"
                     size="small"
-                    onClick={() => setStep(2)}
+                    onClick={() => setStep(2, stepper)}
                     style={{ fontSize: 16, height: 48 }} />
             </S.Action>
         </S.Container>

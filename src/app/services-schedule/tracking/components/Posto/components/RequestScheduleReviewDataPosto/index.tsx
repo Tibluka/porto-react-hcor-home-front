@@ -3,12 +3,13 @@ import { Button, Typography } from 'design-system-react';
 import React from 'react';
 import * as S from './requestScheduleReviewDataPosto.styles';
 import { useRouter } from 'next/navigation';
+import { StepperStore } from '@/zustand/Stepper';
 
 // import { Container } from './styles';
 
 const RequestScheduleReviewDataPosto = ({ setStep }: any) => {
     const router = useRouter();
-
+    const { stepper } = StepperStore();
     return (
         <S.Container>
 
@@ -195,7 +196,7 @@ const RequestScheduleReviewDataPosto = ({ setStep }: any) => {
                     variant="insurance"
                     children="Anterior"
                     size="small"
-                    onClick={() => setStep(3)}
+                    onClick={() => setStep(3, stepper)}
                     style={{ fontSize: 16, height: 48, marginRight: 32 }} />
 
                 <Button
@@ -203,7 +204,7 @@ const RequestScheduleReviewDataPosto = ({ setStep }: any) => {
                     variant="insurance"
                     children="Próximo"
                     size="small"
-                    onClick={() => setStep(5)}
+                    onClick={() => setStep(5, stepper)}
                     style={{ fontSize: 16, height: 48 }} />
             </S.Action>
         </S.Container>

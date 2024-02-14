@@ -4,10 +4,12 @@ import { Button, Typography } from 'design-system-react';
 import React, { useState } from 'react';
 import * as S from './requestScheduleVehicleDataPosto.styles';
 import { useRouter } from 'next/navigation';
+import { StepperStore } from '@/zustand/Stepper';
 // import { Container } from './styles';
 
 const RequestScheduleVehicleDataPosto = ({ setStep }: any) => {
     const router = useRouter();
+    const { stepper } = StepperStore();
     const [vehicleData, setUserData] = useState<any>({
         licensePlate: { value: '', errors: null, valid: false },
         chassi: { value: '', errors: null, valid: false }
@@ -59,7 +61,7 @@ const RequestScheduleVehicleDataPosto = ({ setStep }: any) => {
                     variant="insurance"
                     children="Anterior"
                     size="small"
-                    onClick={() => setStep(2)}
+                    onClick={() => setStep(2, stepper)}
                     style={{ fontSize: 16, height: 48, marginRight: 32 }} />
 
                 <Button
@@ -67,7 +69,7 @@ const RequestScheduleVehicleDataPosto = ({ setStep }: any) => {
                     variant="insurance"
                     children="Próximo"
                     size="small"
-                    onClick={() => setStep(4)}
+                    onClick={() => setStep(4, stepper)}
                     style={{ fontSize: 16, height: 48 }} />
             </S.Action>
         </S.Container>

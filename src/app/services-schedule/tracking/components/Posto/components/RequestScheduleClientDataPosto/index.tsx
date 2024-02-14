@@ -5,11 +5,13 @@ import { Button, Typography } from 'design-system-react';
 import React, { useState } from 'react';
 import * as S from './requestScheduleClientDataPosto.styles';
 import { useRouter } from 'next/navigation';
+import { StepperStore } from '@/zustand/Stepper';
 
 // import { Container } from './styles';
 
 const RequestScheduleClientDataPosto = ({ setStep }: any) => {
     const router = useRouter();
+    const { stepper } = StepperStore();
     const [userData, setUserData] = useState<any>({
         cpfCnpj: { value: '', errors: null, valid: false },
         nameEntity: { value: '', errors: null, valid: false },
@@ -88,7 +90,7 @@ const RequestScheduleClientDataPosto = ({ setStep }: any) => {
                     variant="insurance"
                     children="Anterior"
                     size="small"
-                    onClick={() => setStep(1)}
+                    onClick={() => setStep(1, stepper)}
                     style={{ fontSize: 16, height: 48, marginRight: 32 }} />
 
                 <Button
@@ -96,7 +98,7 @@ const RequestScheduleClientDataPosto = ({ setStep }: any) => {
                     variant="insurance"
                     children="Próximo"
                     size="small"
-                    onClick={() => setStep(3)}
+                    onClick={() => setStep(3, stepper)}
                     style={{ fontSize: 16, height: 48 }} />
             </S.Action>
         </S.Container>
