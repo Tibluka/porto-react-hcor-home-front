@@ -1,13 +1,15 @@
 import { SelectOptionProps } from '@/components/micros/Dropdown/DropDown.types';
 import InputText from '@/components/micros/InputText';
 import { StepperProps } from '@/components/micros/Stepper/stepper.types';
-import { Typography } from 'design-system-react';
+import { Button, Typography } from 'design-system-react';
 import React, { useState } from 'react';
 import * as S from './requestScheduleClientDataPosto.styles';
+import { useRouter } from 'next/navigation';
 
 // import { Container } from './styles';
 
 const RequestScheduleClientDataPosto = ({ setStep }: any) => {
+    const router = useRouter();
     const [userData, setUserData] = useState<any>({
         cpfCnpj: { value: '', errors: null, valid: false },
         nameEntity: { value: '', errors: null, valid: false },
@@ -45,6 +47,30 @@ const RequestScheduleClientDataPosto = ({ setStep }: any) => {
                 <InputText disabled={!userData.phone.valid} width={250} label="Celular" name="phone" value={userData.phone} onChange={handleInputChange} />
             </S.Section>
 
+            <S.Action>
+                <Button
+                    styles="ghost"
+                    variant="insurance"
+                    children="Cancelar"
+                    size="small"
+                    onClick={() => router.back()}
+                    style={{ fontSize: 16, height: 48, marginRight: 32 }} />
+                <Button
+                    styles="secondary"
+                    variant="insurance"
+                    children="Anterior"
+                    size="small"
+                    onClick={() => setStep(1)}
+                    style={{ fontSize: 16, height: 48, marginRight: 32 }} />
+
+                <Button
+                    styles="primary"
+                    variant="insurance"
+                    children="Próximo"
+                    size="small"
+                    onClick={() => setStep(3)}
+                    style={{ fontSize: 16, height: 48 }} />
+            </S.Action>
         </S.Container>
     );
 }

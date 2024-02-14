@@ -5,10 +5,12 @@ import { StepperProps } from '@/components/micros/Stepper/stepper.types';
 import { Button, Typography } from 'design-system-react';
 import React, { useState } from 'react';
 import * as S from './requestScheduleGeneralDataPosto.styles';
+import { useRouter } from 'next/navigation';
 
 // import { Container } from './styles';
 
 const RequestScheduleGeneralDataPosto = ({ setStep }: any) => {
+    const router = useRouter();
     const [company, setCompany] = useState<SelectOptionProps>();
     const [vehicleType, setVehicleType] = useState<SelectOptionProps>();
     const [uf, setUf] = useState<SelectOptionProps>();
@@ -199,6 +201,25 @@ const RequestScheduleGeneralDataPosto = ({ setStep }: any) => {
                     width={488}
                 />
             </S.Section>
+
+
+            <S.Action>
+                <Button
+                    styles="ghost"
+                    variant="insurance"
+                    children="Cancelar"
+                    size="small"
+                    onClick={() => router.back()}
+                    style={{ fontSize: 16, height: 48, marginRight: 32 }} />
+
+                <Button
+                    styles="primary"
+                    variant="insurance"
+                    children="Próximo"
+                    size="small"
+                    onClick={() => setStep(2)}
+                    style={{ fontSize: 16, height: 48 }} />
+            </S.Action>
         </S.Container>
     );
 }

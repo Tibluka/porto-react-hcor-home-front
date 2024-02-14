@@ -1,11 +1,13 @@
 import { StepperProps } from '@/components/micros/Stepper/stepper.types';
-import { Typography } from 'design-system-react';
+import { Button, Typography } from 'design-system-react';
 import React from 'react';
 import * as S from './requestScheduleReviewDataPosto.styles';
+import { useRouter } from 'next/navigation';
 
 // import { Container } from './styles';
 
 const RequestScheduleReviewDataPosto = ({ setStep }: any) => {
+    const router = useRouter();
 
     return (
         <S.Container>
@@ -179,6 +181,31 @@ const RequestScheduleReviewDataPosto = ({ setStep }: any) => {
                     </S.Column>
                 </S.Flex>
             </S.DataBlock>
+
+            <S.Action>
+                <Button
+                    styles="ghost"
+                    variant="insurance"
+                    children="Cancelar"
+                    size="small"
+                    onClick={() => router.back()}
+                    style={{ fontSize: 16, height: 48, marginRight: 32 }} />
+                <Button
+                    styles="secondary"
+                    variant="insurance"
+                    children="Anterior"
+                    size="small"
+                    onClick={() => setStep(3)}
+                    style={{ fontSize: 16, height: 48, marginRight: 32 }} />
+
+                <Button
+                    styles="primary"
+                    variant="insurance"
+                    children="Próximo"
+                    size="small"
+                    onClick={() => setStep(5)}
+                    style={{ fontSize: 16, height: 48 }} />
+            </S.Action>
         </S.Container>
     );
 }

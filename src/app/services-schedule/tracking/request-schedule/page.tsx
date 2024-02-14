@@ -23,7 +23,7 @@ export default function RequestSchedule() {
             content: [
                 {
                     component: function () {
-                        return <RequestScheduleGeneralDataPosto />
+                        return <RequestScheduleGeneralDataPosto setStep={setStep} />
                     },
                     type: 'active',
                     stepDescription: 'Dados gerais',
@@ -31,7 +31,7 @@ export default function RequestSchedule() {
                 },
                 {
                     component: function () {
-                        return <RequestScheduleClientDataPosto />
+                        return <RequestScheduleClientDataPosto setStep={setStep} />
                     },
                     type: 'todo',
                     stepDescription: 'Dados do cliente',
@@ -39,7 +39,7 @@ export default function RequestSchedule() {
                 },
                 {
                     component: function () {
-                        return <RequestScheduleVehicleDataPosto />
+                        return <RequestScheduleVehicleDataPosto setStep={setStep} />
                     },
                     type: 'todo',
                     stepDescription: 'Dados do veículo',
@@ -47,7 +47,7 @@ export default function RequestSchedule() {
                 },
                 {
                     component: function () {
-                        return <RequestScheduleReviewDataPosto />
+                        return <RequestScheduleReviewDataPosto setStep={setStep} />
                     },
                     type: 'todo',
                     stepDescription: 'Revise os dados',
@@ -85,6 +85,8 @@ export default function RequestSchedule() {
             return;
         } else return;
         stepper.content[step - 1].type = 'active';
+        stepper.step = step;
+        stepper.stepName = stepper.content[step - 1].stepDescription;
 
         setStepper(prevStatus => ({
             ...prevStatus,
