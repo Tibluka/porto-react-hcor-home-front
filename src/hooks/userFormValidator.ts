@@ -1,3 +1,4 @@
+import { formatarCpfCnpj, formatarTelefone } from '@/services/Validators';
 import { useState } from 'react';
 
 interface FormValues {
@@ -14,7 +15,7 @@ interface ValidationFunction {
 
 interface HookReturn {
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    handleSubmit: (formValues: FormValues) => void;
+    handleSubmit: (formValues: FormValues) => { [key: string]: any } | null;
     values: FormValues;
     errors: FormErrors;
 }
@@ -24,7 +25,11 @@ const useFormValidation = (initialState: FormValues, validate: ValidationFunctio
     const [errors, setErrors] = useState<FormErrors>({});
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
+        let { name, value } = event.target;
+
+        if (name === 'cpfCnpj') value = formatarCpfCnpj(value);
+        if (name === 'phone') value = formatarTelefone(value);
+
         setValues({
             ...values,
             [name]: { value, errors: null, valid: false },
@@ -36,8 +41,10 @@ const useFormValidation = (initialState: FormValues, validate: ValidationFunctio
         setErrors(validationErrors);
         if (Object.keys(validationErrors).length === 0) {
             console.log('Formulário válido, pronto para ser submetido:', values);
+            return null;
         } else {
-            console.log('Formulário inválido, corrija os erros antes de submeter:', errors);
+            console.log('Formulário inválido, corrija os erros antes de submeter:', validationErrors);
+            return validationErrors;
         }
     };
 
