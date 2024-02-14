@@ -22,7 +22,7 @@ export default function RequestSchedule() {
     const { stepper, setStepper } = StepperStore();
 
     function setStep(step: number, stepper: StepperProps) {
-        debugger
+        
         if (step > stepper!.step && step <= stepper!.totalSteps) {
             stepper!.content.forEach((s: { type: string; }, index: number) => {
                 if (index < (step - 1)) {
@@ -38,7 +38,7 @@ export default function RequestSchedule() {
                 }
             })
         } else if (step > stepper!.totalSteps) {
-            debugger
+            
 
             return;
         } else return;
