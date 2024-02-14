@@ -218,9 +218,11 @@ const RequestScheduleGeneralDataPosto = ({ setStep }: any) => {
                     styles="primary"
                     variant="insurance"
                     children="Próximo"
+                    iconSide="right"
+                    icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
                     size="small"
                     onClick={() => setStep(2, stepper)}
-                    style={{ fontSize: 16, height: 48 }} />
+                    style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }} />
             </S.Action>
         </S.Container>
     );

@@ -39,14 +39,14 @@ const RequestScheduleClientDataDomiciliar = ({ setStep }: any) => {
                         width={250}
                         label="CPF/CNPJ"
                         name="cpfCnpj"
-                        value={userData.cpfCnpj}
+                        value={userData.cpfCnpj.value}
                         onChange={handleInputChange}
                         clearField={() => handleInputChange({ target: { name: "cpfCnpj", value: "" } })} />
                 </S.InputContainer>
                 <InputText
                     label="Nome/Razão social"
                     name="nameEntity"
-                    value={userData.nameEntity}
+                    value={userData.nameEntity.value}
                     onChange={handleInputChange}
                     clearField={() => handleInputChange({ target: { name: "nameEntity", value: "" } })} />
             </S.Section>
@@ -61,7 +61,7 @@ const RequestScheduleClientDataDomiciliar = ({ setStep }: any) => {
                         width={396}
                         label="E-mail"
                         name="email"
-                        value={userData.email}
+                        value={userData.email.value}
                         onChange={handleInputChange}
                         clearField={() => handleInputChange({ target: { name: "email", value: "" } })} />
                 </S.InputContainer>
@@ -69,7 +69,7 @@ const RequestScheduleClientDataDomiciliar = ({ setStep }: any) => {
                     width={250}
                     label="Celular"
                     name="phone"
-                    value={userData.phone}
+                    value={userData.phone.value}
                     onChange={handleInputChange}
                     clearField={() => handleInputChange({ target: { name: "phone", value: "" } })} />
             </S.Section>
@@ -97,9 +97,9 @@ const RequestScheduleClientDataDomiciliar = ({ setStep }: any) => {
                     children="Próximo"
                     variant="insurance"
                     styles="primary"
+                    size="small"
                     iconSide="right"
                     icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
-                    size="small"
                     onClick={() => setStep(4, stepper)}
                     style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }}
                 />

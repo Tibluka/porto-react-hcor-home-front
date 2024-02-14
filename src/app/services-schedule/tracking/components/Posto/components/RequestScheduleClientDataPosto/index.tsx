@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import * as S from './requestScheduleClientDataPosto.styles';
 import { useRouter } from 'next/navigation';
 import { StepperStore } from '@/zustand/Stepper';
+import { Icon } from '@/components/micros/Icon';
 
 // import { Container } from './styles';
 
@@ -90,16 +91,20 @@ const RequestScheduleClientDataPosto = ({ setStep }: any) => {
                     variant="insurance"
                     children="Anterior"
                     size="small"
+                    iconSide="left"
+                    icon={<Icon size={20} color="primary" icon="Porto-ic-arrow-left" />}
                     onClick={() => setStep(1, stepper)}
-                    style={{ fontSize: 16, height: 48, marginRight: 32 }} />
+                    style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0', marginRight: 32 }} />
 
                 <Button
                     styles="primary"
                     variant="insurance"
                     children="Próximo"
                     size="small"
+                    iconSide="right"
+                    icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
                     onClick={() => setStep(3, stepper)}
-                    style={{ fontSize: 16, height: 48 }} />
+                    style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }} />
             </S.Action>
         </S.Container>
     );

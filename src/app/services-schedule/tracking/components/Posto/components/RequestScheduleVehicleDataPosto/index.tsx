@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import * as S from './requestScheduleVehicleDataPosto.styles';
 import { useRouter } from 'next/navigation';
 import { StepperStore } from '@/zustand/Stepper';
+import { Icon } from '@/components/micros/Icon';
 // import { Container } from './styles';
 
 const RequestScheduleVehicleDataPosto = ({ setStep }: any) => {
@@ -61,16 +62,20 @@ const RequestScheduleVehicleDataPosto = ({ setStep }: any) => {
                     variant="insurance"
                     children="Anterior"
                     size="small"
+                    iconSide="left"
+                    icon={<Icon size={20} color="primary" icon="Porto-ic-arrow-left" />}
                     onClick={() => setStep(2, stepper)}
-                    style={{ fontSize: 16, height: 48, marginRight: 32 }} />
+                    style={{ fontSize: 16, height: 48, marginRight: 32, fontWeight: 700, lineHeight: '0' }} />
 
                 <Button
                     styles="primary"
                     variant="insurance"
                     children="Próximo"
                     size="small"
+                    iconSide="right"
+                    icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
                     onClick={() => setStep(4, stepper)}
-                    style={{ fontSize: 16, height: 48 }} />
+                    style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }} />
             </S.Action>
         </S.Container>
     );
