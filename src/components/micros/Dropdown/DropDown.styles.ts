@@ -13,11 +13,14 @@ export const Container = styled.div<DropdownWidthStyle>`
 `;
 
 export const Select = styled.div<InputProps>`
-	${({ active }) => css`
+	${({ active, errorMessage }) => css`
 		border-radius: 4px;
 		padding: 7px 12px;
 		height: 100%;
-		border: ${active ? '1px solid #00A1FC;' : '1px solid var(--neutras-black-45, #B3B3B3)'};
+		border: ${active ? '1px solid #00A1FC;' :
+			(errorMessage ?
+				'1px solid var(--paleta-estendida-red-red-85, #97453C) !important' :
+				'1px solid var(--neutras-black-45, #B3B3B3)')};
 
 		&:hover{
 			border: 1px solid #00A1FC;
@@ -26,12 +29,12 @@ export const Select = styled.div<InputProps>`
 `;
 
 export const Label = styled.label<LabelActive>`
-	${({ labelActive }) => css`
+	${({ labelActive, invalid }) => css`
 		position: absolute;
 		transition: 200ms;
 		top: 50%;
 		transform: ${labelActive ? 'translateY(-20px)' : 'translateY(-50%)'};
-		color: var(--neutras-black-75, #404040);
+		color: ${invalid ? 'var(--paleta-estendida-red-red-85, #97453C) !important' : 'var(--neutras-black-75, #404040)'};
 		font-family: "Open Sans";
 		font-size: ${labelActive ? '10px' : '14px'};
 		font-weight: 400;

@@ -1,8 +1,9 @@
+import { SelectOptionProps } from '@/components/micros/Dropdown/DropDown.types';
 import { formatarCpfCnpj, formatarTelefone } from '@/services/Validators';
 import { useState } from 'react';
 
 interface FormValues {
-    [key: string]: { value: string; errors: string | null; valid: boolean };
+    [key: string]: { value: string | SelectOptionProps | any; errors: string | null; valid: boolean };
 }
 
 interface FormErrors {
@@ -14,7 +15,7 @@ interface ValidationFunction {
 }
 
 interface HookReturn {
-    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleChange: (event: React.ChangeEvent<HTMLInputElement> | any) => void;
     handleSubmit: (formValues: FormValues) => { [key: string]: any } | null;
     values: FormValues;
     errors: FormErrors;

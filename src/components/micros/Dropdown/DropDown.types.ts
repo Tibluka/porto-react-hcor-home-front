@@ -5,7 +5,7 @@ export interface DropdownProps {
 	width?: number;
 	selectOptions: SelectOptionProps[];
 	label: string;
-	errorMessage?: string;
+	errorMessage?: boolean;
 	helperText?: string;
 	border: 'cover' | 'bottom' | 'none';
 	helperLinkText?: string;
@@ -13,7 +13,7 @@ export interface DropdownProps {
 	helperLinkTarget?: string;
 	success?: boolean;
 	disable: boolean;
-	selectedOption?: SelectOptionProps;
+	selectedOption?: SelectOptionProps | null | any;
 	onClick?: any;
 	onKeyDown?: any;
 	style?: CSSProperties;
@@ -41,6 +41,7 @@ export type SelectOptionProps = {
 
 export type InputProps = {
 	active: boolean;
+	errorMessage?: boolean;
 }
 
 export type LabelActive = {
