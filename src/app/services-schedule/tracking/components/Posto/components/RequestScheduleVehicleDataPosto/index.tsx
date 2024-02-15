@@ -6,24 +6,35 @@ import * as S from './requestScheduleVehicleDataPosto.styles';
 import { useRouter } from 'next/navigation';
 import { StepperStore } from '@/zustand/Stepper';
 import { Icon } from '@/components/micros/Icon';
+import useFormValidation from '@/hooks/userFormValidator';
 // import { Container } from './styles';
 
 const RequestScheduleVehicleDataPosto = ({ setStep }: any) => {
     const router = useRouter();
     const { stepper } = StepperStore();
-    const [vehicleData, setUserData] = useState<any>({
-        licensePlate: { value: '', errors: null, valid: false },
-        chassi: { value: '', errors: null, valid: false }
-    });
 
-    const handleInputChange = (event: any) => {
-        const { name, value } = event.target;
-        setUserData({
-            ...vehicleData, [name]: {
-                value
+    const { handleChange, handleSubmit, values, errors } = useFormValidation(
+        {
+            licensePlate: { value: '', errors: null, valid: false },
+            chassi: { value: '', errors: null, valid: false }
+        },
+        (values) => {
+            let errors: { [key: string]: string } = {};
+            if (!values.licensePlate.value) {
+                errors.licensePlate = 'Campo Placa social é obrigatório';
             }
-        });
-    };
+
+            if (!values.chassi.value) {
+                errors.chassi = 'Campo Chassi social é obrigatório';
+            }
+
+            return errors;
+        }
+    );
+
+    function clearField(name: string, value: string) {
+        handleChange({ target: { name, value: value } } as any);
+    }
 
     return (
         <S.Container>
@@ -34,19 +45,21 @@ const RequestScheduleVehicleDataPosto = ({ setStep }: any) => {
             <S.Section>
                 <S.InputContainer>
                     <InputText
+                        invalid={!!errors.licensePlate}
                         width={250}
                         label="Placa"
                         name="licensePlate"
-                        value={vehicleData.licensePlate.value}
-                        onChange={handleInputChange}
-                        clearField={() => handleInputChange({ target: { name: "licensePlate", value: "" } })} />
+                        value={values.licensePlate.value}
+                        clearField={() => clearField("licensePlate", "")}
+                        onChange={handleChange} />
                 </S.InputContainer>
                 <InputText
+                    invalid={!!errors.chassi}
                     label="Chassi"
                     name="chassi"
-                    value={vehicleData.chassi.value}
-                    onChange={handleInputChange}
-                    clearField={() => handleInputChange({ target: { name: "chassi", value: "" } })} />
+                    value={values.chassi.value}
+                    clearField={() => clearField("chassi", "")}
+                    onChange={handleChange} />
             </S.Section>
 
             <S.Action>
@@ -74,7 +87,10 @@ const RequestScheduleVehicleDataPosto = ({ setStep }: any) => {
                     size="small"
                     iconSide="right"
                     icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
-                    onClick={() => setStep(4, stepper)}
+                    onClick={() => {
+                        const errors = handleSubmit(values);
+                        if (!errors || Object.keys(errors).length === 0) setStep(4, stepper);
+                    }}
                     style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }} />
             </S.Action>
         </S.Container>
