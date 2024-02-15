@@ -79,7 +79,10 @@ const RequestScheduleServicePlaceDomiciliar = ({ setStep }: any) => {
                     iconSide="right"
                     icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
                     size="small"
-                    onClick={() => setStep(2, stepper)}
+                    onClick={() => {
+                        const errors = handleSubmit(values);
+                        if (!errors || Object.keys(errors).length === 0) setStep(2, stepper);
+                    }}
                     style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }}
                 />
             </S.Action>

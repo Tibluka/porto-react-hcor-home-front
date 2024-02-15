@@ -15,8 +15,6 @@ const RequestScheduleGeneralDataPosto = ({ setStep }: any) => {
     const router = useRouter();
     const { stepper } = StepperStore();
 
-
-
     const { handleChange, handleSubmit, values, errors } = useFormValidation(
         {
             company: { value: null, errors: null, valid: false },
