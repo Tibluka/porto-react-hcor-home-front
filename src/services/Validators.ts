@@ -164,3 +164,20 @@ export function formatarTelefone(telefone: string) {
 
 }
 
+export function formatarCEP(cep: string) {
+    // Remove todos os caracteres não numéricos
+    cep = cep.replace(/\D/g, '');
+
+    // Limita o número máximo de dígitos a 8
+    cep = cep.substring(0, 8);
+
+    // Se o CEP estiver vazio, retorna uma string vazia
+    if (cep.length === 0) {
+        return '';
+    }
+
+    // Adiciona a máscara: 00000-000
+    return cep.replace(/(\d{5})(\d{3})/, '$1-$2');
+}
+
+

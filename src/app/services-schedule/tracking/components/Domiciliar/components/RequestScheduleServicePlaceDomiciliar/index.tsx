@@ -13,9 +13,11 @@ const RequestScheduleServicePlaceDomiciliar = ({ setStep }: any) => {
     const router = useRouter();
     const { stepper } = StepperStore();
 
+    const { form } = stepper ?? {};
+
     const { handleChange, handleSubmit, values, errors } = useFormValidation(
         {
-            zipCode: { value: '', errors: null, valid: false }
+            zipCode: { value: form?.zipCode, errors: null, valid: false }
         },
         (values) => {
             let errors: { [key: string]: string } = {};
@@ -32,6 +34,17 @@ const RequestScheduleServicePlaceDomiciliar = ({ setStep }: any) => {
 
     function clearField(name: string, value: string) {
         handleChange({ target: { name, value: value } } as any);
+    }
+
+    function nextStep() {
+        const errors = handleSubmit(values);
+        if (!errors || Object.keys(errors).length === 0) {
+            StepperStore.getState().setStepperForm({
+                ...form,
+                zipCode: values.zipCode.value
+            });
+            setStep(2, StepperStore.getState().stepper);
+        }
     }
 
     return (
@@ -79,10 +92,7 @@ const RequestScheduleServicePlaceDomiciliar = ({ setStep }: any) => {
                     iconSide="right"
                     icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
                     size="small"
-                    onClick={() => {
-                        const errors = handleSubmit(values);
-                        if (!errors || Object.keys(errors).length === 0) setStep(2, stepper);
-                    }}
+                    onClick={nextStep}
                     style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }}
                 />
             </S.Action>

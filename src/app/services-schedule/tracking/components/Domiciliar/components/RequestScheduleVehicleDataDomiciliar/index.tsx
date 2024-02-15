@@ -12,11 +12,12 @@ import useFormValidation from '@/hooks/userFormValidator';
 const RequestScheduleVehicleDataDomiciliar = ({ setStep }: any) => {
     const router = useRouter();
     const { stepper } = StepperStore();
+    const { form } = stepper ?? {};
 
     const { handleChange, handleSubmit, values, errors } = useFormValidation(
         {
-            licensePlate: { value: '', errors: null, valid: false },
-            chassi: { value: '', errors: null, valid: false }
+            licensePlate: { value: form?.licensePlate, errors: null, valid: false },
+            chassi: { value: form?.chassi, errors: null, valid: false }
         },
         (values) => {
             let errors: { [key: string]: string } = {};
@@ -35,6 +36,19 @@ const RequestScheduleVehicleDataDomiciliar = ({ setStep }: any) => {
     function clearField(name: string, value: string) {
         handleChange({ target: { name, value: value } } as any);
     }
+
+    function nextStep() {
+        const errors = handleSubmit(values);
+        if (!errors || Object.keys(errors).length === 0) {
+            StepperStore.getState().setStepperForm({
+                ...form,
+                licensePlate: values.licensePlate.value,
+                chassi: values.chassi.value
+            });
+            setStep(5, StepperStore.getState().stepper);
+        }
+    }
+
 
     return (
         <S.Container>
@@ -77,7 +91,7 @@ const RequestScheduleVehicleDataDomiciliar = ({ setStep }: any) => {
                     size="small"
                     iconSide="left"
                     icon={<Icon size={20} color="primary" icon="Porto-ic-arrow-left" />}
-                    onClick={() => setStep(2, stepper)}
+                    onClick={() => setStep(3, stepper)}
                     style={{ fontSize: 16, height: 48, marginRight: 32, fontWeight: 700, lineHeight: '0' }} />
 
                 <Button
@@ -87,10 +101,7 @@ const RequestScheduleVehicleDataDomiciliar = ({ setStep }: any) => {
                     size="small"
                     iconSide="right"
                     icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
-                    onClick={() => {
-                        const errors = handleSubmit(values);
-                        if (!errors || Object.keys(errors).length === 0) setStep(4, stepper);
-                    }}
+                    onClick={nextStep}
                     style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }} />
             </S.Action>
         </S.Container>

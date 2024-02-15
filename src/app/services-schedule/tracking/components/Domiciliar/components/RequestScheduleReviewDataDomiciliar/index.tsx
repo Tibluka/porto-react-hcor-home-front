@@ -9,8 +9,17 @@ import { Icon } from '@/components/micros/Icon';
 // import { Container } from './styles';
 
 const RequestScheduleReviewDataDomiciliar = ({ setStep }: any) => {
-    const { stepper } = StepperStore();
     const router = useRouter();
+    const { stepper } = StepperStore();
+
+    const { form } = stepper ?? {};
+
+    function finalize() {
+        console.log(form);
+
+        setStep(5, StepperStore.getState().stepper);
+    }
+
     return (
         <S.Container>
 
@@ -29,7 +38,7 @@ const RequestScheduleReviewDataDomiciliar = ({ setStep }: any) => {
                             Nome do cliente
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            José Santos da Silva
+                            {form?.nameEntity}
                         </Typography>
                     </S.Column>
                     <S.Column>
@@ -37,7 +46,7 @@ const RequestScheduleReviewDataDomiciliar = ({ setStep }: any) => {
                             CPF
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            123.456.789-00
+                            {form?.cpfCnpj}
                         </Typography>
                     </S.Column>
                 </S.Flex>
@@ -54,7 +63,7 @@ const RequestScheduleReviewDataDomiciliar = ({ setStep }: any) => {
                             Cidade
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            São Paulo
+                            {form?.city.name}
                         </Typography>
                     </S.Column>
                     <S.Column>
@@ -62,7 +71,7 @@ const RequestScheduleReviewDataDomiciliar = ({ setStep }: any) => {
                             UF
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            SP
+                            {form?.uf.name}
                         </Typography>
                     </S.Column>
                     <S.Column>
@@ -70,7 +79,7 @@ const RequestScheduleReviewDataDomiciliar = ({ setStep }: any) => {
                             Bairro
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            Centro
+                            {form?.region.name}
                         </Typography>
                     </S.Column>
                     <S.Column>
@@ -78,7 +87,7 @@ const RequestScheduleReviewDataDomiciliar = ({ setStep }: any) => {
                             Posto
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            CAPS Araçatuba - R Luiz Pereira Barreto, 800 - Vila São Paulo
+                            {form?.posto.name}
                         </Typography>
                     </S.Column>
                 </S.Flex>
@@ -95,7 +104,7 @@ const RequestScheduleReviewDataDomiciliar = ({ setStep }: any) => {
                             E-mail
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            jose@exemplo.com
+                            {form?.email}
                         </Typography>
                     </S.Column>
                     <S.Column>
@@ -103,7 +112,7 @@ const RequestScheduleReviewDataDomiciliar = ({ setStep }: any) => {
                             Telefone
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            (11) 99999-9999
+                            {form?.phone}
                         </Typography>
                     </S.Column>
                 </S.Flex>
@@ -119,7 +128,7 @@ const RequestScheduleReviewDataDomiciliar = ({ setStep }: any) => {
                             Placa
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            ABC-1234
+                            {form?.licensePlate}
                         </Typography>
                     </S.Column>
                     <S.Column>
@@ -127,7 +136,7 @@ const RequestScheduleReviewDataDomiciliar = ({ setStep }: any) => {
                             Chassi
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            8AGSA19907R142308
+                            {form?.chassi}
                         </Typography>
                     </S.Column>
                 </S.Flex>
@@ -152,7 +161,7 @@ const RequestScheduleReviewDataDomiciliar = ({ setStep }: any) => {
                             Empresa
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            Porto Seguro CIA de Seguros
+                            {form?.company.name}
                         </Typography>
                     </S.Column>
                     <S.Column>
@@ -186,33 +195,31 @@ const RequestScheduleReviewDataDomiciliar = ({ setStep }: any) => {
 
             <S.Action>
                 <Button
-                    children="Cancelar"
-                    variant="insurance"
                     styles="ghost"
-                    size="small"
-                    onClick={router.back}
-                    style={{ fontSize: 16, fontWeight: 700, height: 48, lineHeight: '20px', marginRight: 32 }}
-                />
-                <Button
-                    children="Voltar"
                     variant="insurance"
+                    children="Cancelar"
+                    size="small"
+                    onClick={() => router.back()}
+                    style={{ fontSize: 16, height: 48, marginRight: 32 }} />
+                <Button
                     styles="secondary"
+                    variant="insurance"
+                    children="Anterior"
                     size="small"
                     iconSide="left"
-                    onClick={() => setStep(4, stepper)}
                     icon={<Icon size={20} color="primary" icon="Porto-ic-arrow-left" />}
-                    style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0', marginRight: 32 }}
-                />
+                    onClick={() => setStep(3, stepper)}
+                    style={{ fontSize: 16, height: 48, marginRight: 32, fontWeight: 700, lineHeight: '0' }} />
+
                 <Button
-                    children="Próximo"
-                    variant="insurance"
                     styles="primary"
+                    variant="insurance"
+                    children="Próximo"
+                    size="small"
                     iconSide="right"
                     icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
-                    size="small"
-                    onClick={() => setStep(6, stepper)}
-                    style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }}
-                />
+                    onClick={finalize}
+                    style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }} />
             </S.Action>
         </S.Container>
     );

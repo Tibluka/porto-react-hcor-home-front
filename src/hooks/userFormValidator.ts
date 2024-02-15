@@ -1,5 +1,5 @@
 import { SelectOptionProps } from '@/components/micros/Dropdown/DropDown.types';
-import { formatarCpfCnpj, formatarTelefone } from '@/services/Validators';
+import { formatarCEP, formatarCpfCnpj, formatarTelefone } from '@/services/Validators';
 import { useState } from 'react';
 
 interface FormValues {
@@ -30,6 +30,7 @@ const useFormValidation = (initialState: FormValues, validate: ValidationFunctio
 
         if (name === 'cpfCnpj') value = formatarCpfCnpj(value);
         if (name === 'phone') value = formatarTelefone(value);
+        if (name === 'zipCode') value = formatarCEP(value);
 
         setValues({
             ...values,

@@ -14,13 +14,14 @@ const RequestScheduleClientDataDomiciliar = ({ setStep }: any) => {
     const router = useRouter();
     const { stepper } = StepperStore();
 
+    const { form } = stepper ?? {};
 
     const { handleChange, handleSubmit, values, errors } = useFormValidation(
         {
-            cpfCnpj: { value: '', errors: null, valid: false },
-            nameEntity: { value: '', errors: null, valid: false },
-            email: { value: '', errors: null, valid: false },
-            phone: { value: '', errors: null, valid: false }
+            cpfCnpj: { value: form?.cpfCnpj, errors: null, valid: false },
+            nameEntity: { value: form?.nameEntity, errors: null, valid: false },
+            email: { value: form?.email, errors: null, valid: false },
+            phone: { value: form?.phone, errors: null, valid: false }
         },
         (values) => {
             let errors: { [key: string]: string } = {};
@@ -62,6 +63,20 @@ const RequestScheduleClientDataDomiciliar = ({ setStep }: any) => {
 
     function clearField(name: string, value: string) {
         handleChange({ target: { name, value: value } } as any);
+    }
+
+    function nextStep() {
+        const errors = handleSubmit(values);
+        if (!errors || Object.keys(errors).length === 0) {
+            StepperStore.getState().setStepperForm({
+                ...form,
+                cpfCnpj: values.cpfCnpj.value,
+                nameEntity: values.nameEntity.value,
+                email: values.email.value,
+                phone: values.phone.value
+            });
+            setStep(4, StepperStore.getState().stepper);
+        }
     }
 
     return (
@@ -132,6 +147,15 @@ const RequestScheduleClientDataDomiciliar = ({ setStep }: any) => {
                     icon={<Icon size={20} color="primary" icon="Porto-ic-arrow-left" />}
                     onClick={() => setStep(1, stepper)}
                     style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0', marginRight: 32 }} />
+                <Button
+                    styles="secondary"
+                    variant="insurance"
+                    children="Anterior"
+                    size="small"
+                    iconSide="left"
+                    icon={<Icon size={20} color="primary" icon="Porto-ic-arrow-left" />}
+                    onClick={() => setStep(2, stepper)}
+                    style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0', marginRight: 32 }} />
 
                 <Button
                     styles="primary"
@@ -140,10 +164,7 @@ const RequestScheduleClientDataDomiciliar = ({ setStep }: any) => {
                     size="small"
                     iconSide="right"
                     icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
-                    onClick={() => {
-                        const errors = handleSubmit(values);
-                        if (!errors || Object.keys(errors).length === 0) setStep(3, stepper);
-                    }}
+                    onClick={nextStep}
                     style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }} />
             </S.Action>
         </S.Container>
