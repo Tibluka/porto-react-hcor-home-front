@@ -12,20 +12,21 @@ import useFormValidation from '@/hooks/userFormValidator';
 const RequestScheduleVehicleDataPosto = ({ setStep }: any) => {
     const router = useRouter();
     const { stepper } = StepperStore();
+    const { form } = stepper ?? {};
 
     const { handleChange, handleSubmit, values, errors } = useFormValidation(
         {
-            licensePlate: { value: '', errors: null, valid: false },
-            chassi: { value: '', errors: null, valid: false }
+            licensePlate: { value: form?.licensePlate, errors: null, valid: false },
+            chassi: { value: form?.chassi, errors: null, valid: false }
         },
         (values) => {
             let errors: { [key: string]: string } = {};
             if (!values.licensePlate.value) {
-                errors.licensePlate = 'Campo Placa social é obrigatório';
+                errors.licensePlate = 'Campo Placa é obrigatório';
             }
 
             if (!values.chassi.value) {
-                errors.chassi = 'Campo Chassi social é obrigatório';
+                errors.chassi = 'Campo Chassi é obrigatório';
             }
 
             return errors;
@@ -35,6 +36,19 @@ const RequestScheduleVehicleDataPosto = ({ setStep }: any) => {
     function clearField(name: string, value: string) {
         handleChange({ target: { name, value: value } } as any);
     }
+
+    function nextStep() {
+        const errors = handleSubmit(values);
+        if (!errors || Object.keys(errors).length === 0) {
+            StepperStore.getState().setStepperForm({
+                ...form,
+                licensePlate: values.licensePlate.value,
+                chassi: values.chassi.value
+            });
+            setStep(4, StepperStore.getState().stepper);
+        }
+    }
+
 
     return (
         <S.Container>
@@ -87,10 +101,7 @@ const RequestScheduleVehicleDataPosto = ({ setStep }: any) => {
                     size="small"
                     iconSide="right"
                     icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
-                    onClick={() => {
-                        const errors = handleSubmit(values);
-                        if (!errors || Object.keys(errors).length === 0) setStep(4, stepper);
-                    }}
+                    onClick={nextStep}
                     style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }} />
             </S.Action>
         </S.Container>

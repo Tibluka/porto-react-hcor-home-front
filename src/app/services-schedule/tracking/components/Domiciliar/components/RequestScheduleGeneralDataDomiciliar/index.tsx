@@ -26,7 +26,7 @@ const RequestScheduleGeneralDataDomiciliar = ({ setStep }: any) => {
         },
         (values) => {
             let errors: { [key: string]: string } = {};
-            debugger
+            
             if (!values.company.value) {
                 errors.company = 'Campo Empresa é obrigatório';
             }
@@ -37,13 +37,13 @@ const RequestScheduleGeneralDataDomiciliar = ({ setStep }: any) => {
                 errors.uf = 'Campo Estado é obrigatório';
             }
             if (!values.city.value) {
-                errors.city = 'Campo Cidade social é obrigatório';
+                errors.city = 'Campo Cidade é obrigatório';
             }
             if (!values.region.value) {
-                errors.region = 'Campo Região social é obrigatório';
+                errors.region = 'Campo Região é obrigatório';
             }
             if (!values.posto.value) {
-                errors.posto = 'Campo Posto social é obrigatório';
+                errors.posto = 'Campo Posto é obrigatório';
             }
 
             return errors;

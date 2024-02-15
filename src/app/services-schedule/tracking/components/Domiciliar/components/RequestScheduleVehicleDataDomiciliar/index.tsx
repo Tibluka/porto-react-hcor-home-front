@@ -21,11 +21,11 @@ const RequestScheduleVehicleDataDomiciliar = ({ setStep }: any) => {
         (values) => {
             let errors: { [key: string]: string } = {};
             if (!values.licensePlate.value) {
-                errors.licensePlate = 'Campo Placa social é obrigatório';
+                errors.licensePlate = 'Campo Placa é obrigatório';
             }
 
             if (!values.chassi.value) {
-                errors.chassi = 'Campo Chassi social é obrigatório';
+                errors.chassi = 'Campo Chassi é obrigatório';
             }
 
             return errors;

@@ -11,6 +11,15 @@ import { Icon } from '@/components/micros/Icon';
 const RequestScheduleReviewDataPosto = ({ setStep }: any) => {
     const router = useRouter();
     const { stepper } = StepperStore();
+
+    const { form } = stepper ?? {};
+
+    function finalize() {
+        console.log(form);
+
+        setStep(5, StepperStore.getState().stepper);
+    }
+
     return (
         <S.Container>
 
@@ -29,7 +38,7 @@ const RequestScheduleReviewDataPosto = ({ setStep }: any) => {
                             Nome do cliente
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            José Santos da Silva
+                            {form?.nameEntity}
                         </Typography>
                     </S.Column>
                     <S.Column>
@@ -37,7 +46,7 @@ const RequestScheduleReviewDataPosto = ({ setStep }: any) => {
                             CPF
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            123.456.789-00
+                            {form?.cpfCnpj}
                         </Typography>
                     </S.Column>
                 </S.Flex>
@@ -54,7 +63,7 @@ const RequestScheduleReviewDataPosto = ({ setStep }: any) => {
                             Cidade
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            São Paulo
+                            {form?.city.name}
                         </Typography>
                     </S.Column>
                     <S.Column>
@@ -62,7 +71,7 @@ const RequestScheduleReviewDataPosto = ({ setStep }: any) => {
                             UF
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            SP
+                            {form?.uf.name}
                         </Typography>
                     </S.Column>
                     <S.Column>
@@ -70,7 +79,7 @@ const RequestScheduleReviewDataPosto = ({ setStep }: any) => {
                             Bairro
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            Centro
+                            {form?.region.name}
                         </Typography>
                     </S.Column>
                     <S.Column>
@@ -78,7 +87,7 @@ const RequestScheduleReviewDataPosto = ({ setStep }: any) => {
                             Posto
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            CAPS Araçatuba - R Luiz Pereira Barreto, 800 - Vila São Paulo
+                            {form?.posto.name}
                         </Typography>
                     </S.Column>
                 </S.Flex>
@@ -95,7 +104,7 @@ const RequestScheduleReviewDataPosto = ({ setStep }: any) => {
                             E-mail
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            jose@exemplo.com
+                            {form?.email}
                         </Typography>
                     </S.Column>
                     <S.Column>
@@ -103,7 +112,7 @@ const RequestScheduleReviewDataPosto = ({ setStep }: any) => {
                             Telefone
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            (11) 99999-9999
+                            {form?.phone}
                         </Typography>
                     </S.Column>
                 </S.Flex>
@@ -119,7 +128,7 @@ const RequestScheduleReviewDataPosto = ({ setStep }: any) => {
                             Placa
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            ABC-1234
+                            {form?.licensePlate}
                         </Typography>
                     </S.Column>
                     <S.Column>
@@ -127,7 +136,7 @@ const RequestScheduleReviewDataPosto = ({ setStep }: any) => {
                             Chassi
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            8AGSA19907R142308
+                            {form?.chassi}
                         </Typography>
                     </S.Column>
                 </S.Flex>
@@ -152,7 +161,7 @@ const RequestScheduleReviewDataPosto = ({ setStep }: any) => {
                             Empresa
                         </Typography>
                         <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
-                            Porto Seguro CIA de Seguros
+                            {form?.company.name}
                         </Typography>
                     </S.Column>
                     <S.Column>
@@ -209,7 +218,7 @@ const RequestScheduleReviewDataPosto = ({ setStep }: any) => {
                     size="small"
                     iconSide="right"
                     icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
-                    onClick={() => setStep(5, stepper)}
+                    onClick={finalize}
                     style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }} />
             </S.Action>
         </S.Container>

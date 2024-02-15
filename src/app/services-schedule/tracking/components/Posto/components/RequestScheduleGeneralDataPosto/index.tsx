@@ -15,18 +15,20 @@ const RequestScheduleGeneralDataPosto = ({ setStep }: any) => {
     const router = useRouter();
     const { stepper } = StepperStore();
 
+    const { form } = stepper ?? {};
+
     const { handleChange, handleSubmit, values, errors } = useFormValidation(
         {
-            company: { value: null, errors: null, valid: false },
-            vehicleType: { value: null, errors: null, valid: false },
-            uf: { value: null, errors: null, valid: false },
-            city: { value: null, errors: null, valid: false },
-            region: { value: null, errors: null, valid: false },
-            posto: { value: null, errors: null, valid: false }
+            company: { value: form?.company, errors: null, valid: false },
+            vehicleType: { value: form?.vehicleType, errors: null, valid: false },
+            uf: { value: form?.uf, errors: null, valid: false },
+            city: { value: form?.city, errors: null, valid: false },
+            region: { value: form?.region, errors: null, valid: false },
+            posto: { value: form?.posto, errors: null, valid: false }
         },
         (values) => {
             let errors: { [key: string]: string } = {};
-            debugger
+
             if (!values.company.value) {
                 errors.company = 'Campo Empresa é obrigatório';
             }
@@ -37,13 +39,13 @@ const RequestScheduleGeneralDataPosto = ({ setStep }: any) => {
                 errors.uf = 'Campo Estado é obrigatório';
             }
             if (!values.city.value) {
-                errors.city = 'Campo Cidade social é obrigatório';
+                errors.city = 'Campo Cidade é obrigatório';
             }
             if (!values.region.value) {
-                errors.region = 'Campo Região social é obrigatório';
+                errors.region = 'Campo Região é obrigatório';
             }
             if (!values.posto.value) {
-                errors.posto = 'Campo Posto social é obrigatório';
+                errors.posto = 'Campo Posto é obrigatório';
             }
 
             return errors;
@@ -156,6 +158,22 @@ const RequestScheduleGeneralDataPosto = ({ setStep }: any) => {
         handleChange({ target: { name, value } });
     }
 
+    function nextStep() {
+        const errors = handleSubmit(values);
+        if (!errors || Object.keys(errors).length === 0) {
+            StepperStore.getState().setStepperForm({
+                ...form,
+                company: values.company.value,
+                vehicleType: values.vehicleType.value,
+                uf: values.uf.value,
+                region: values.region.value,
+                city: values.city.value,
+                posto: values.posto.value
+            });
+            setStep(2, StepperStore.getState().stepper);
+        }
+    }
+
     return (
         <S.Container>
             <Typography as="h4" type="Title6" style={{ fontSize: 20, fontWeight: 500, lineHeight: '24px', marginBottom: 24, marginTop: 24 }}>
@@ -257,10 +275,7 @@ const RequestScheduleGeneralDataPosto = ({ setStep }: any) => {
                     iconSide="right"
                     icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
                     size="small"
-                    onClick={() => {
-                        const errors = handleSubmit(values);
-                        if (!errors || Object.keys(errors).length === 0) setStep(2, stepper);
-                    }}
+                    onClick={nextStep}
                     style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }} />
             </S.Action>
         </S.Container>
