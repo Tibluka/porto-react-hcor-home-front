@@ -10,113 +10,80 @@ import RequestScheduleStepper from './components/RequestScheduleStepper';
 
 export default function OtherServices() {
     const router = useRouter();
-    const [showSelectCompany, setShowSelectCompany] = useState(true);
-    const [showSelectKey, setShowSelectKey] = useState(false);
-    const [showRequestScheduleStepper, setShowRequestScheduleStepper] = useState(false);
-
-    const handleNextButtonClick = () => {
-        if (showSelectCompany) {
-            setShowSelectCompany(false);
-            setShowSelectKey(true);
-        } else if (showSelectKey) {
-            setShowSelectKey(false);
-            setShowRequestScheduleStepper(true);
-        }
-    };
-
-    const handlePreviousButtonClick = () => {
-        if (showSelectKey) {
-            setShowSelectKey(false);
-            setShowSelectCompany(true);
-        } else if (showRequestScheduleStepper) {
-            setShowRequestScheduleStepper(false);
-            setShowSelectKey(true);
-        }
-    };
+    const [schedulePart, setSchedulePart] = useState(1);
 
     return (
         <S.Container>
-            <Typography as="h1" type="Title6" style={{ marginBottom: 8, fontSize: 32, lineHeight: '36px', fontWeight: 500 }}>
-                Solicitar agendamento
-            </Typography>
 
-            {!showRequestScheduleStepper && (
-                <Typography as="p" type="Body2" style={{ marginBottom: 48, fontSize: 16, color: '#808080', lineHeight: '24px' }}>
-                    Realize o agendamento de vistorias.
-                </Typography>
-            )}
+            <S.Container>
+                {(() => {
+                    switch (schedulePart) {
+                        case 1:
+                            return (
+                                <S.Container>
+                                    <Typography as="h1" type="Title6" style={{ marginBottom: 8, fontSize: 32, lineHeight: '36px', fontWeight: 500 }}>
+                                        Solicitar agendamento
+                                    </Typography>
 
-            {showSelectCompany && <SelectCompany />}
-            {showSelectKey && <SelectKey />}
-            {showRequestScheduleStepper && <RequestScheduleStepper />}
+                                    <SelectCompany />
+                                </S.Container>
+                            );
+                        case 2:
+                            return (
+                                <S.Container>
+                                    <Typography as="p" type="Body2" style={{ marginBottom: 48, fontSize: 16, color: '#808080', lineHeight: '24px' }}>
+                                        Realize o agendamento de vistorias.
+                                    </Typography>
+                                    < SelectKey />
+                                </S.Container>
+                            );
+                        case 3:
+                            return (
+                                <S.Container>
+                                    <Typography as="p" type="Body2" style={{ marginBottom: 48, fontSize: 16, color: '#808080', lineHeight: '24px' }}>
+                                        Realize o agendamento de vistorias.
+                                    </Typography>
+                                    <RequestScheduleStepper />
+                                </S.Container>
+                            );
+                        default:
+                            return null;
+                    }
+                })()}
+            </S.Container>
 
             <S.Action>
+                {
+                    schedulePart === 1 ?
+                        (
+                            <Button
+                                children="Cancelar"
+                                variant="insurance"
+                                styles="ghost"
+                                size="small"
+                                onClick={router.back}
+                                style={{ fontSize: 16, fontWeight: 700, height: 48, lineHeight: '20px', marginRight: 32 }}
+                            />
+                        ) :
+                        (
+                            <Button
+                                children="Anterior"
+                                variant="insurance"
+                                styles="ghost"
+                                size="small"
+                                onClick={() => setSchedulePart(schedulePart - 1)}
+                                style={{ fontSize: 16, fontWeight: 700, height: 48, lineHeight: '20px', marginRight: 32 }}
+                            />
+                        )
+                }
                 <Button
-                    children="Cancelar"
+                    children="Próximo"
                     variant="insurance"
-                    styles="ghost"
+                    styles="primary"
                     size="small"
-                    onClick={router.back}
-                    style={{ fontSize: 16, fontWeight: 700, height: 48, lineHeight: '20px', marginRight: 32 }}
+                    onClick={() => setSchedulePart(schedulePart + 1)}
+                    style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }}
                 />
-                {showSelectCompany && (
-                    <Button
-                        children="Próximo"
-                        variant="insurance"
-                        styles="primary"
-                        size="small"
-                        onClick={handleNextButtonClick}
-                        style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }}
-                    />
-                )}
-                {showSelectKey && (
-                    <React.Fragment>
-                        <Button
-                            children="Anterior"
-                            variant="negative"
-                            styles="primary"
-                            iconSide="left"
-                            icon={<Icon size="small" color="white" icon="Porto-ic-arrow-left" />}
-                            size="small"
-                            onClick={handlePreviousButtonClick}
-                            style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0', borderWidth: 1, borderColor: '#0046C0', marginRight: 32 }}
-                        />
-                        <Button
-                            children="Próximo"
-                            variant="insurance"
-                            styles="primary"
-                            iconSide="right"
-                            icon={<Icon size="small" color="white" icon="Porto-ic-arrow-right" />}
-                            size="small"
-                            onClick={handleNextButtonClick}
-                            style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }}
-                        />
-                    </React.Fragment>
-                )}
-                {showRequestScheduleStepper && (
-                    <React.Fragment>
-                        <Button
-                            children="Anterior"
-                            variant="negative"
-                            styles="primary"
-                            iconSide="left"
-                            icon={<Icon size="small" color="white" icon="Porto-ic-arrow-left" />}
-                            size="small"
-                            onClick={handlePreviousButtonClick}
-                            style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0', borderWidth: 1, borderColor: '#0046C0', marginRight: 32 }}
-                        />
-                        <Button
-                            children="Próximo"
-                            variant="insurance"
-                            styles="primary"
-                            iconSide="right"
-                            icon={<Icon size="small" color="white" icon="Porto-ic-arrow-right" />}
-                            size="small"
-                            onClick={router.back}
-                            style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }}
-                        />
-                    </React.Fragment>
-                )}
             </S.Action>
         </S.Container>
     );
