@@ -1,47 +1,40 @@
 import { Typography } from 'design-system-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StepBar } from './components/StepBar';
 import * as S from './stepper.styles';
 import { StepContentProps, StepperProps } from './stepper.types';
 
-export const Stepper = ({
-    step,
-    stepName,
-    setStep,
-    totalSteps,
-    nextStep,
-    content
-}: StepperProps) => {
+export const Stepper = ({ stepper }: any) => {
 
     return (
         <S.Container>
             <S.StepHeader>
                 <S.StepDescription>
                     <Typography as="p" type="Body1" style={{ fontSize: 14, lineHeight: '20px', fontWeight: 700, marginRight: 4 }}>
-                        {step} de {totalSteps}
+                        {stepper.step} de {stepper.totalSteps}
                     </Typography>
                     <Typography as="p" type="Body1" style={{ fontSize: 14, lineHeight: '20px' }}>
-                        - {content[step - 1].stepDescription}
+                        - {stepper.content[stepper.step - 1].stepDescription}
                     </Typography>
                 </S.StepDescription>
                 {
-                    content[step]?.stepDescription ?
+                    stepper.content[stepper.step]?.stepDescription ?
                         <Typography as="p" type="Body1" style={{ fontSize: 14, lineHeight: '20px' }}>
-                            Próximo passo: {content[step].stepDescription}
+                            Próximo passo: {stepper.content[stepper.step].stepDescription}
                         </Typography> : null
                 }
             </S.StepHeader>
 
-            <S.StepBar totalSteps={totalSteps}>
+            <S.StepBar totalSteps={stepper.totalSteps}>
                 {
-                    (content.map((d, index) => (
-                        <StepBar key={index} type={d.type} onClick={() => setStep(index + 1)} />
+                    (stepper.content.map((d:any, index: any) => (
+                        <StepBar key={index} type={d.type} onClick={() => stepper.setStep(index + 1, stepper)} />
                     )))
                 }
             </S.StepBar>
             <S.Content>
                 {
-                    content.filter(f => f.type === 'active').map((func: StepContentProps) => (
+                    stepper.content.filter((f: { type: string; }) => f.type === 'active').map((func: StepContentProps) => (
                         <>{func.component()}</>
                     ))
                 }

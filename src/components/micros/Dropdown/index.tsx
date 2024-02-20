@@ -6,7 +6,6 @@ import Image from 'next/image';
 export const Dropdown = ({
 	selectOptions,
 	label,
-	hasLabel = true,
 	success,
 	errorMessage,
 	border,
@@ -46,8 +45,8 @@ export const Dropdown = ({
 
 	return (
 		<S.Container ref={containerRef} width={width}>
-			<S.Select active={dropdownActive} onClick={() => setDropdownActive(!dropdownActive)}>
-				<S.Label labelActive={selectedOption ? true : false}>
+			<S.Select errorMessage={errorMessage} active={dropdownActive} onClick={() => setDropdownActive(!dropdownActive)}>
+				<S.Label labelActive={selectedOption ? true : false} invalid={errorMessage}>
 					{label}
 				</S.Label>
 				<S.Value>

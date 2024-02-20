@@ -1,5 +1,5 @@
 {
-  "name": "react-pcom-hcor-home-front",
+  "name": "react-pcom-vprevia-home-front",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -16,7 +16,8 @@
     "react-hook-form": "^7.50.1",
     "react-input-mask": "^2.0.4",
     "react-spinners": "^0.13.8",
-    "styled-components": "^6.1.8"
+    "styled-components": "^6.1.8",
+    "zustand": "^4.5.0"
   },
   "devDependencies": {
     "@types/node": "^20",

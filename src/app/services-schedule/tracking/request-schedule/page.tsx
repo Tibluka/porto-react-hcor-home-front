@@ -14,85 +14,39 @@ import RequestScheduleGeneralDataPosto from '../components/Posto/components/Requ
 import RequestScheduleReviewDataPosto from '../components/Posto/components/RequestScheduleReviewDataPosto';
 import RequestScheduleVehicleDataPosto from '../components/Posto/components/RequestScheduleVehicleDataPosto';
 import * as S from './request-schedule.styles';
+import { StepperStore } from '@/zustand/Stepper';
 
 export default function RequestSchedule() {
     const router = useRouter();
     const params = useSearchParams().get("solicitationType");
-    const [stepper, setStepper] = useState<StepperProps>(
-        {
-            content: [
-                {
-                    component: function () {
-                        return <RequestScheduleGeneralDataPosto />
-                    },
-                    type: 'active',
-                    stepDescription: 'Dados gerais',
-                    stepFormValid: false
-                },
-                {
-                    component: function () {
-                        return <RequestScheduleClientDataPosto />
-                    },
-                    type: 'todo',
-                    stepDescription: 'Dados do cliente',
-                    stepFormValid: false
-                },
-                {
-                    component: function () {
-                        return <RequestScheduleVehicleDataPosto />
-                    },
-                    type: 'todo',
-                    stepDescription: 'Dados do veículo',
-                    stepFormValid: false
-                },
-                {
-                    component: function () {
-                        return <RequestScheduleReviewDataPosto />
-                    },
-                    type: 'todo',
-                    stepDescription: 'Revise os dados',
-                    stepFormValid: false
-                },
-            ],
-            step: 1,
-            stepName: 'teste',
-            totalSteps: 4,
-            nextStep: '',
-            setStep: setStep
-        }
-    )
+    const { stepper, setStepper } = StepperStore();
 
-    const [isOpen, setIsOpen] = useState(false);
-
-    function setStep(step: number) {
-        if (step > stepper.step && step <= stepper.totalSteps) {
-            stepper.content.forEach((s, index) => {
-                if (index < step) {
+    function setStep(step: number, stepper: StepperProps) {
+        
+        if (step > stepper!.step && step <= stepper!.totalSteps) {
+            stepper!.content.forEach((s: { type: string; }, index: number) => {
+                if (index < (step - 1)) {
                     s.type = 'done';
                 }
             })
-        } else if (step < stepper.step) {
-            stepper.content.forEach((s, index) => {
+        } else if (step < stepper!.step) {
+            stepper!.content.forEach((s: { type: string; }, index: number) => {
                 if ((index + 1) > step) {
                     s.type = 'todo';
                 } else if (step === index) {
                     s.type = 'active';
                 }
             })
-        } else if (step > stepper.totalSteps) {
-            debugger
+        } else if (step > stepper!.totalSteps) {
+            
 
             return;
         } else return;
         stepper.content[step - 1].type = 'active';
+        stepper.step = step;
+        stepper.stepName = stepper.content[step - 1].stepDescription;
 
-        setStepper(prevStatus => ({
-            ...prevStatus,
-            step: step,
-            stepName: stepper.content[step - 1].stepDescription
-        }));
-
-
+        setStepper(stepper);
     }
 
     useEffect(() => {
@@ -103,7 +57,7 @@ export default function RequestSchedule() {
                         content: [
                             {
                                 component: function () {
-                                    return <RequestScheduleServicePlaceDomiciliar stepper={stepper} setStep={setStep} />
+                                    return <RequestScheduleServicePlaceDomiciliar setStep={setStep} />
                                 },
                                 type: 'active',
                                 stepDescription: 'Local do serviço',
@@ -111,7 +65,7 @@ export default function RequestSchedule() {
                             },
                             {
                                 component: function () {
-                                    return <RequestScheduleGeneralDataDomiciliar />
+                                    return <RequestScheduleGeneralDataDomiciliar setStep={setStep} />
                                 },
                                 type: 'todo',
                                 stepDescription: 'Dados gerais',
@@ -119,7 +73,7 @@ export default function RequestSchedule() {
                             },
                             {
                                 component: function () {
-                                    return <RequestScheduleClientDataDomiciliar />
+                                    return <RequestScheduleClientDataDomiciliar setStep={setStep} />
                                 },
                                 type: 'todo',
                                 stepDescription: 'Dados do cliente',
@@ -127,7 +81,7 @@ export default function RequestSchedule() {
                             },
                             {
                                 component: function () {
-                                    return <RequestScheduleVehicleDataDomiciliar />
+                                    return <RequestScheduleVehicleDataDomiciliar setStep={setStep} />
                                 },
                                 type: 'todo',
                                 stepDescription: 'Dados do veículo',
@@ -135,7 +89,7 @@ export default function RequestSchedule() {
                             },
                             {
                                 component: function () {
-                                    return <RequestScheduleReviewDataDomiciliar />
+                                    return <RequestScheduleReviewDataDomiciliar setStep={setStep} />
                                 },
                                 type: 'todo',
                                 stepDescription: 'Revise os dados',
@@ -149,11 +103,58 @@ export default function RequestSchedule() {
                         setStep: setStep
                     }
                 )
+            } else {
+                setStepper(
+                    {
+                        content: [
+                            {
+                                component: function () {
+                                    return <RequestScheduleGeneralDataPosto setStep={setStep} />
+                                },
+                                type: 'active',
+                                stepDescription: 'Dados gerais',
+                                stepFormValid: false
+                            },
+                            {
+                                component: function () {
+                                    return <RequestScheduleClientDataPosto setStep={setStep} />
+                                },
+                                type: 'todo',
+                                stepDescription: 'Dados do cliente',
+                                stepFormValid: false
+                            },
+                            {
+                                component: function () {
+                                    return <RequestScheduleVehicleDataPosto setStep={setStep} />
+                                },
+                                type: 'todo',
+                                stepDescription: 'Dados do veículo',
+                                stepFormValid: false
+                            },
+                            {
+                                component: function () {
+                                    return <RequestScheduleReviewDataPosto setStep={setStep} />
+                                },
+                                type: 'todo',
+                                stepDescription: 'Revise os dados',
+                                stepFormValid: false
+                            },
+                        ],
+                        step: 1,
+                        stepName: 'teste',
+                        totalSteps: 4,
+                        nextStep: '',
+                        setStep: setStep
+                    }
+                )
             }
         }
-        setup()
+        setup();
     }, []);
 
+    if (!stepper) {
+        return null;
+    }
     return (
         <S.Container>
             <Typography
@@ -180,14 +181,9 @@ export default function RequestSchedule() {
             <hr style={{ marginTop: 16, marginBottom: 16, width: '100%', height: '1px', background: '#E0E0E0', border: 'none' }} />
 
             <Stepper
-                content={stepper.content}
-                step={stepper.step}
-                stepName={stepper.stepName}
-                totalSteps={stepper.totalSteps}
-                setStep={setStep}
+                stepper={stepper}
             />
 
-            <Modal mode="light" title="Title" isOpen={false} setIsOpen={() => setIsOpen(false)} />
         </S.Container>
     );
 }

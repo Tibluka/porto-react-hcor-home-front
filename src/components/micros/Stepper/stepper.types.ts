@@ -1,11 +1,12 @@
 export declare type StepperProps = {
-    totalSteps: number;
-    step: number;
-    stepName: string;
+    totalSteps?: number;
+    step?: number;
+    stepName?: string;
     nextStep?: string;
-    content: Array<StepContentProps>;
+    content?: Array<StepContentProps>;
     type?: any;
-    setStep: any;
+    setStep?: any;
+    form?: any;
 };
 export declare type StepItemProps = {
     type: 'done' | 'active' | 'todo';

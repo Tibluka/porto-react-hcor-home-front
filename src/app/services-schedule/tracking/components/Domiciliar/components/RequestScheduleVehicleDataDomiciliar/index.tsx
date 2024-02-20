@@ -1,20 +1,55 @@
 import InputText from '@/components/micros/InputText';
 import { StepperProps } from '@/components/micros/Stepper/stepper.types';
-import { Typography } from 'design-system-react';
+import { Button, Typography } from 'design-system-react';
 import React, { useState } from 'react';
 import * as S from './requestScheduleVehicleDataDomiciliar.styles';
+import { useRouter } from 'next/navigation';
+import { StepperStore } from '@/zustand/Stepper';
+import { Icon } from '@/components/micros/Icon';
+import useFormValidation from '@/hooks/userFormValidator';
 // import { Container } from './styles';
 
 const RequestScheduleVehicleDataDomiciliar = ({ setStep }: any) => {
-    const [vehicleData, setUserData] = useState<any>({
-        licensePlate: { value: '', errors: null, valid: false },
-        chassi: { value: '', errors: null, valid: false }
-    });
+    const router = useRouter();
+    const { stepper } = StepperStore();
+    const { form } = stepper ?? {};
 
-    const handleInputChange = (event: any) => {
-        const { name, value } = event.target;
-        setUserData({ ...vehicleData, [name]: value });
-    };
+    const { handleChange, handleSubmit, values, errors } = useFormValidation(
+        {
+            licensePlate: { value: form?.licensePlate, errors: null, valid: false },
+            chassi: { value: form?.chassi, errors: null, valid: false }
+        },
+        (values) => {
+            let errors: { [key: string]: string } = {};
+            if (!values.licensePlate.value) {
+                errors.licensePlate = 'Campo Placa é obrigatório';
+            }
+
+            if (!values.chassi.value) {
+                errors.chassi = 'Campo Chassi é obrigatório';
+            }
+
+            return errors;
+        }
+    );
+
+    function clearField(name: string, value: string) {
+        handleChange({ target: { name, value: value } } as any);
+    }
+
+    function nextStep() {
+        const errors = handleSubmit(values);
+        if (!errors || Object.keys(errors).length === 0) {
+            StepperStore.getState().setStepperForm({
+                ...form,
+                licensePlate: values.licensePlate.value,
+                chassi: values.chassi.value
+            });
+            setStep(5, StepperStore.getState().stepper);
+        }
+    }
+
+
     return (
         <S.Container>
             <Typography as="h4" type="Title6" style={{ fontSize: 20, fontWeight: 500, lineHeight: '24px', marginBottom: 24, marginTop: 24 }}>
@@ -23,10 +58,52 @@ const RequestScheduleVehicleDataDomiciliar = ({ setStep }: any) => {
 
             <S.Section>
                 <S.InputContainer>
-                    <InputText disabled={!vehicleData.licensePlate.valid} width={250} label="Placa" name="licensePlate" value={vehicleData.licensePlate.value} onChange={handleInputChange} />
+                    <InputText
+                        invalid={!!errors.licensePlate}
+                        width={250}
+                        label="Placa"
+                        name="licensePlate"
+                        value={values.licensePlate.value}
+                        clearField={() => clearField("licensePlate", "")}
+                        onChange={handleChange} />
                 </S.InputContainer>
-                <InputText disabled={!vehicleData.chassi.valid} label="Chassi" name="chassi" value={vehicleData.chassi.value} onChange={handleInputChange} />
+                <InputText
+                    invalid={!!errors.chassi}
+                    label="Chassi"
+                    name="chassi"
+                    value={values.chassi.value}
+                    clearField={() => clearField("chassi", "")}
+                    onChange={handleChange} />
             </S.Section>
+
+            <S.Action>
+                <Button
+                    styles="ghost"
+                    variant="insurance"
+                    children="Cancelar"
+                    size="small"
+                    onClick={() => router.back()}
+                    style={{ fontSize: 16, height: 48, marginRight: 32 }} />
+                <Button
+                    styles="secondary"
+                    variant="insurance"
+                    children="Anterior"
+                    size="small"
+                    iconSide="left"
+                    icon={<Icon size={20} color="primary" icon="Porto-ic-arrow-left" />}
+                    onClick={() => setStep(3, stepper)}
+                    style={{ fontSize: 16, height: 48, marginRight: 32, fontWeight: 700, lineHeight: '0' }} />
+
+                <Button
+                    styles="primary"
+                    variant="insurance"
+                    children="Próximo"
+                    size="small"
+                    iconSide="right"
+                    icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
+                    onClick={nextStep}
+                    style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }} />
+            </S.Action>
         </S.Container>
     );
 }

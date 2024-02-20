@@ -16,3 +16,9 @@ export const Section = styled.div`
 export const FormInput = styled.input`
 	
 `;
+
+
+export const Action = styled.div`
+	display: flex;
+	justify-content: flex-end;
+`;

@@ -19,3 +19,9 @@ export const Column = styled.div`
 	flex-direction: column;
 	margin-right: 32px;
 `;
+
+
+export const Action = styled.div`
+	display: flex;
+	justify-content: flex-end;
+`;

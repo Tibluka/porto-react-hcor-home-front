@@ -13,3 +13,9 @@ export const Section = styled.div`
 	display: flex;
 	margin-bottom: 38px;
 `;
+
+
+export const Action = styled.div`
+	display: flex;
+	justify-content: flex-end;
+`;
