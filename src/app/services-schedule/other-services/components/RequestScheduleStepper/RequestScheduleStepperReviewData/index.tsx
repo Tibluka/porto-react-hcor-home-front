@@ -1,6 +1,10 @@
-import { Typography } from 'design-system-react';
+import { Button, Typography } from 'design-system-react';
 import { useState } from 'react';
 import * as S from './requestScheduleStepperReviewData.styles';
+import { Icon } from '@/components/micros/Icon';
+import useFormValidation from '@/hooks/userFormValidator';
+import { useRouter } from 'next/navigation';
+import { StepperStore } from '@/zustand/Stepper';
 
 
 const RequestScheduleStepperReviewData = ({ setStep }: any) => {
@@ -11,10 +15,49 @@ const RequestScheduleStepperReviewData = ({ setStep }: any) => {
         { value: 2, label: 'Domiciliar' },
     ];
 
+    const router = useRouter();
+    const { stepper } = StepperStore();
+    const { form } = stepper ?? {};
+
+    const { handleChange, handleSubmit, values, errors } = useFormValidation(
+        {
+            licensePlate: { value: form?.licensePlate, errors: null, valid: false },
+            chassi: { value: form?.chassi, errors: null, valid: false }
+        },
+        (values) => {
+            let errors: { [key: string]: string } = {};
+            if (!values.licensePlate.value) {
+                errors.licensePlate = 'Campo Placa é obrigatório';
+            }
+
+            if (!values.chassi.value) {
+                errors.chassi = 'Campo Chassi é obrigatório';
+            }
+
+            return errors;
+        }
+    );
 
     const handleOptionChange = (value: any) => {
         setSelectedOption(value);
     };
+
+    function clearField(name: string, value: string) {
+        handleChange({ target: { name, value: value } } as any);
+    }
+
+    function nextStep() {
+        const errors = handleSubmit(values);
+        if (!errors || Object.keys(errors).length === 0) {
+            StepperStore.getState().setStepperForm({
+                ...form,
+                licensePlate: values.licensePlate.value,
+                chassi: values.chassi.value
+            });
+            setStep(2, StepperStore.getState().stepper);
+        }
+    }
+
 
     return (
         <S.Container>
@@ -42,6 +85,33 @@ const RequestScheduleStepperReviewData = ({ setStep }: any) => {
                     </label>
                 ))}
             </S.FormCustomRadio>
+
+            <S.Action>
+                <Button
+                    styles="ghost"
+                    variant="insurance"
+                    children="Cancelar"
+                    size="small"
+                    onClick={() => router.back()}
+                    style={{ fontSize: 16, height: 48, marginRight: 32 }} />
+                <Button
+                    styles="secondary"
+                    variant="insurance"
+                    children="Anterior"
+                    size="small"
+                    iconSide="left"
+                    icon={<Icon size={20} color="primary" icon="Porto-ic-arrow-left" />}
+                    onClick={() => setStep(2, stepper)}
+                    style={{ fontSize: 16, height: 48, marginRight: 32, fontWeight: 700, lineHeight: '0' }} />
+
+                <Button
+                    styles="primary"
+                    variant="insurance"
+                    children="Finalizar agendamento"
+                    size="small"
+                    onClick={nextStep}
+                    style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }} />
+            </S.Action>
 
         </S.Container>
     );

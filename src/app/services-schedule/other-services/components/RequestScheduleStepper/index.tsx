@@ -3,6 +3,11 @@ import { StepperStore } from "@/zustand/Stepper";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import RequestScheduleStepperGeneralData from "./RequestScheduleStepperGeneralData";
+import RequestScheduleStepperInspectionData from "./RequestScheduleStepperInspectionData";
+import RequestScheduleStepperReviewData from "./RequestScheduleStepperReviewData";
+import { Typography } from "design-system-react";
+import { Stepper } from "@/components/micros/Stepper";
+import * as S from './requestScheduleStepper.styles';
 
 const RequestScheduleStepper = () => {
 
@@ -11,7 +16,6 @@ const RequestScheduleStepper = () => {
     const { stepper, setStepper } = StepperStore();
 
     function setStep(step: number, stepper: StepperProps) {
-
         if (step > stepper!.step && step <= stepper!.totalSteps) {
             stepper!.content.forEach((s: { type: string; }, index: number) => {
                 if (index < (step - 1)) {
@@ -48,29 +52,29 @@ const RequestScheduleStepper = () => {
                                 return <RequestScheduleStepperGeneralData setStep={setStep} />
                             },
                             type: 'active',
-                            stepDescription: 'Local do serviço',
-                            stepFormValid: false
-                        },
-                        {
-                            component: function () {
-                                return <RequestScheduleGeneralDataDomiciliar setStep={setStep} />
-                            },
-                            type: 'todo',
                             stepDescription: 'Dados gerais',
                             stepFormValid: false
                         },
                         {
                             component: function () {
-                                return <RequestScheduleClientDataDomiciliar setStep={setStep} />
+                                return <RequestScheduleStepperInspectionData setStep={setStep} />
                             },
                             type: 'todo',
-                            stepDescription: 'Dados do cliente',
+                            stepDescription: 'Endereço da Vistoria',
+                            stepFormValid: false
+                        },
+                        {
+                            component: function () {
+                                return <RequestScheduleStepperReviewData setStep={setStep} />
+                            },
+                            type: 'todo',
+                            stepDescription: 'Revise os dados',
                             stepFormValid: false
                         }
                     ],
                     step: 1,
-                    stepName: 'Local do serviço',
-                    totalSteps: 5,
+                    stepName: 'Dados gerais',
+                    totalSteps: 3,
                     nextStep: '',
                     setStep: setStep
                 }
@@ -82,6 +86,7 @@ const RequestScheduleStepper = () => {
     if (!stepper) {
         return null;
     }
+    
     return (
         <S.Container>
             <Typography
@@ -89,20 +94,6 @@ const RequestScheduleStepper = () => {
                 type="Title6"
                 style={{ marginBottom: 8, fontSize: 24, lineHeight: '36px' }}>
                 Solicitar agendamento
-            </Typography>
-
-            <Typography
-                as="p"
-                type="Body2"
-                style={{ marginBottom: 2, fontSize: 12, lineHeight: '15.6px', color: 'var(--neutras-black-85, #1F1F1F)' }}>
-                Serviço
-            </Typography>
-
-            <Typography
-                as="p"
-                type="Title4"
-                style={{ fontSize: 14, lineHeight: '130%', color: 'var(--neutras-black-85, #1F1F1F)' }}>
-                Posto - Rastreador Porto Seguro
             </Typography>
 
             <hr style={{ marginTop: 16, marginBottom: 16, width: '100%', height: '1px', background: '#E0E0E0', border: 'none' }} />

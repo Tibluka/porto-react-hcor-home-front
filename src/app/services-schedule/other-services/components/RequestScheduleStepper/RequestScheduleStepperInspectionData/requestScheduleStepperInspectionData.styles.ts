@@ -10,10 +10,7 @@ export const DropdownContainer = styled.div`
 	margin-right: 20px;
 `;
 
-export const Section = styled.div`
-	display: flex;
-	margin-bottom: 38px;
-`;
+
 
 export const FormCustomRadio = styled.div`
   margin-top: 8px;
@@ -79,3 +76,20 @@ export const Radio = styled.span<RadioProps>`
     `};
 
 `
+
+export const Action = styled.div`
+	display: flex;
+	justify-content: flex-end;
+`;
+
+export const Section = styled.div`
+	display: flex;
+`;
+
+export const FormInput = styled.input`
+	
+`;
+
+export const InputContainer = styled.div`
+	margin-right: 20px;
+`;

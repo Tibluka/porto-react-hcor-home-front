@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation';
 
 
 const RequestScheduleStepperGeneralData = ({ setStep }: any) => {
+    const [selectedOption, setSelectedOption] = useState(null);
+
     const router = useRouter();
     const { stepper } = StepperStore();
     const { form } = stepper ?? {};
@@ -20,17 +22,18 @@ const RequestScheduleStepperGeneralData = ({ setStep }: any) => {
         },
         (values) => {
             let errors: { [key: string]: string } = {};
-            if (!values.licensePlate.value) {
+           /*  if (!values.licensePlate.value) {
                 errors.licensePlate = 'Campo Placa é obrigatório';
-            }
-
-            if (!values.chassi.value) {
-                errors.chassi = 'Campo Chassi é obrigatório';
-            }
+            } */
 
             return errors;
         }
     );
+
+    const options = [
+        { value: 1, label: 'Posto' },
+        { value: 2, label: 'Domiciliar' }
+    ];
 
     function clearField(name: string, value: string) {
         handleChange({ target: { name, value: value } } as any);
@@ -44,36 +47,40 @@ const RequestScheduleStepperGeneralData = ({ setStep }: any) => {
                 licensePlate: values.licensePlate.value,
                 chassi: values.chassi.value
             });
-            setStep(5, StepperStore.getState().stepper);
+            setStep(2, StepperStore.getState().stepper);
         }
     }
 
+    const handleOptionChange = (value: any) => {
+        setSelectedOption(value);
+    };
 
     return (
         <S.Container>
-            <Typography as="h4" type="Title6" style={{ fontSize: 20, fontWeight: 500, lineHeight: '24px', marginBottom: 24, marginTop: 24 }}>
-                Dados do veículo
+            <Typography as="h4" type="Title6" style={{ color: '#404040', fontSize: 20, fontWeight: 500, lineHeight: '24px', marginBottom: 48, marginTop: 16 }}>
+                Sua vistoria será realizada <span style={{ fontWeight: 700 }}>presencialmente</span>. Para concluir a solicitação, é só conferir as <br />
+                informações e <span style={{ fontWeight: 700 }}>preencher o que falta</span>.
             </Typography>
 
-            <S.Section>
-                <S.InputContainer>
-                    <InputText
-                        invalid={!!errors.licensePlate}
-                        width={250}
-                        label="Placa"
-                        name="licensePlate"
-                        value={values.licensePlate.value}
-                        clearField={() => clearField("licensePlate", "")}
-                        onChange={handleChange} />
-                </S.InputContainer>
-                <InputText
-                    invalid={!!errors.chassi}
-                    label="Chassi"
-                    name="chassi"
-                    value={values.chassi.value}
-                    clearField={() => clearField("chassi", "")}
-                    onChange={handleChange} />
-            </S.Section>
+            <Typography as="p" type="Body2" style={{ marginBottom: 8, fontSize: 12, color: '#1C1C1C', lineHeight: '16.34px' }}>
+                Selecione como sua vistoria será realizada:
+            </Typography>
+
+            <S.FormCustomRadio>
+                {options.map((option) => (
+                    <label key={option.value}>
+                        <input
+                            type="radio"
+                            value={option.value}
+                            checked={selectedOption === option.value}
+                            onChange={() => handleOptionChange(option.value)}
+                        />
+                        <S.Radio selected={selectedOption === option.value}>
+                            {option.label}
+                        </S.Radio>
+                    </label>
+                ))}
+            </S.FormCustomRadio>
 
             <S.Action>
                 <Button
@@ -83,16 +90,7 @@ const RequestScheduleStepperGeneralData = ({ setStep }: any) => {
                     size="small"
                     onClick={() => router.back()}
                     style={{ fontSize: 16, height: 48, marginRight: 32 }} />
-                <Button
-                    styles="secondary"
-                    variant="insurance"
-                    children="Anterior"
-                    size="small"
-                    iconSide="left"
-                    icon={<Icon size={20} color="primary" icon="Porto-ic-arrow-left" />}
-                    onClick={() => setStep(3, stepper)}
-                    style={{ fontSize: 16, height: 48, marginRight: 32, fontWeight: 700, lineHeight: '0' }} />
-
+            
                 <Button
                     styles="primary"
                     variant="insurance"

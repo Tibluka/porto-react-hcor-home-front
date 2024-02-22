@@ -6,6 +6,12 @@ export const Container = styled.div`
 	height: 100%;
 `;
 
+export const Action = styled.div`
+	display: flex;
+	justify-content: flex-end;
+`;
+
+
 export const DropdownContainer = styled.div`
 	margin-right: 20px;
 `;
