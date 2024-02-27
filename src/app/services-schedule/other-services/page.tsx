@@ -1,7 +1,8 @@
 'use client'
 
 import React, { useState } from 'react';
-import { Button, Icon, Typography } from 'design-system-react';
+import { Button, Typography } from 'design-system-react';
+import { Icon } from '@/components/micros/Icon';
 import * as S from './other-services.styles';
 import SelectCompany from './components/SelectCompany';
 import { useRouter } from 'next/navigation';
@@ -11,6 +12,10 @@ import RequestScheduleStepper from './components/RequestScheduleStepper';
 export default function OtherServices() {
     const router = useRouter();
     const [schedulePart, setSchedulePart] = useState(1);
+
+    function changePart(part: number) {
+        setSchedulePart(part);
+    }
 
     return (
         <S.Container>
@@ -45,7 +50,7 @@ export default function OtherServices() {
                         case 3:
                             return (
                                 <S.Container>
-                                    <RequestScheduleStepper />
+                                    <RequestScheduleStepper setSchedulePart={changePart} />
                                 </S.Container>
                             );
                         default:
@@ -85,9 +90,12 @@ export default function OtherServices() {
                             variant="insurance"
                             styles="primary"
                             size="small"
+                            iconSide="right"
+                            icon={<Icon size={20} color="white" icon="Porto-ic-arrow-right" />}
                             onClick={() => setSchedulePart(schedulePart + 1)}
                             style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }}
                         />
+
                     </S.Action> : null
             }
         </S.Container>

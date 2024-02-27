@@ -9,7 +9,7 @@ import { Typography } from "design-system-react";
 import { Stepper } from "@/components/micros/Stepper";
 import * as S from './requestScheduleStepper.styles';
 
-const RequestScheduleStepper = () => {
+const RequestScheduleStepper = ({ setSchedulePart }: any) => {
 
     const router = useRouter();
     const params = useSearchParams().get("solicitationType");
@@ -49,7 +49,7 @@ const RequestScheduleStepper = () => {
                     content: [
                         {
                             component: function () {
-                                return <RequestScheduleStepperGeneralData setStep={setStep} />
+                                return <RequestScheduleStepperGeneralData setStep={setStep} setSchedulePart={setSchedulePart} />
                             },
                             type: 'active',
                             stepDescription: 'Dados gerais',
@@ -86,7 +86,7 @@ const RequestScheduleStepper = () => {
     if (!stepper) {
         return null;
     }
-    
+
     return (
         <S.Container>
             <Typography

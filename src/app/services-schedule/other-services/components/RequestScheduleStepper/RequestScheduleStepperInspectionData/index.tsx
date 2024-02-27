@@ -6,7 +6,7 @@ import { StepperStore } from '@/zustand/Stepper';
 import { Icon } from '@/components/micros/Icon';
 import useFormValidation from '@/hooks/userFormValidator';
 import InputText from '@/components/micros/InputText';
-
+import InputMask from 'react-input-mask';
 
 const RequestScheduleStepperInspectionData = ({ setStep }: any) => {
     const [selectedOption, setSelectedOption] = useState(1);
@@ -220,14 +220,20 @@ const RequestScheduleStepperInspectionData = ({ setStep }: any) => {
             </Typography>
 
             <S.Section style={{ marginBottom: 24 }}>
-                <InputText
-                    invalid={!!errors.scheduleDate}
-                    width={184}
-                    label="Data"
-                    name="scheduleDate"
+                <InputMask
+                    mask="99/99/9999" // Define a máscara para o formato dd/mm/aaaa
+                    maskChar={null} // Remove o caractere de preenchimento da máscara
                     value={values.scheduleDate.value}
-                    clearField={() => clearField("scheduleDate", "")}
-                    onChange={handleChange} />
+                    onChange={handleChange}>
+                    <InputText
+                        invalid={!!errors.scheduleDate}
+                        width={184}
+                        label="Data"
+                        name="scheduleDate"
+                        value={values.scheduleDate.value}
+                        clearField={() => clearField("scheduleDate", "")}
+                    />
+                </InputMask>
             </S.Section>
 
             <Typography as="h4" type="Title6" style={{ marginBottom: 24, fontSize: 20, lineHeight: '24px', fontWeight: 500 }}>

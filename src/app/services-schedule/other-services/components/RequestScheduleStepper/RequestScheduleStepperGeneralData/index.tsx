@@ -6,9 +6,10 @@ import { Icon } from '@/components/micros/Icon';
 import { StepperStore } from '@/zustand/Stepper';
 import useFormValidation from '@/hooks/userFormValidator';
 import { useRouter } from 'next/navigation';
+import { validarCNPJ, validarCPF, validarEmail, validarTelefone } from '@/services/Validators';
 
 
-const RequestScheduleStepperGeneralData = ({ setStep }: any) => {
+const RequestScheduleStepperGeneralData = ({ setStep, setSchedulePart }: any) => {
     const [selectedOption, setSelectedOption] = useState(null);
 
     const router = useRouter();
@@ -17,14 +18,26 @@ const RequestScheduleStepperGeneralData = ({ setStep }: any) => {
 
     const { handleChange, handleSubmit, values, errors } = useFormValidation(
         {
-            licensePlate: { value: form?.licensePlate, errors: null, valid: false },
-            chassi: { value: form?.chassi, errors: null, valid: false }
+            email: { value: form?.email, errors: null, valid: false },
+            phone: { value: form?.phone, errors: null, valid: false }
         },
         (values) => {
             let errors: { [key: string]: string } = {};
-           /*  if (!values.licensePlate.value) {
-                errors.licensePlate = 'Campo Placa é obrigatório';
-            } */
+
+
+            // Validação do e-mail
+            if (!values.email.value) {
+                errors.email = 'E-mail é obrigatório';
+            } else if (!validarEmail(values.email.value)) {
+                errors.email = 'E-mail inválido';
+            }
+
+            // Validação do telefone
+            if (!values.phone.value) {
+                errors.phone = 'Telefone é obrigatório';
+            } else if (!validarTelefone(values.phone.value)) {
+                errors.phone = 'Telefone inválido';
+            }
 
             return errors;
         }
@@ -44,8 +57,8 @@ const RequestScheduleStepperGeneralData = ({ setStep }: any) => {
         if (!errors || Object.keys(errors).length === 0) {
             StepperStore.getState().setStepperForm({
                 ...form,
-                licensePlate: values.licensePlate.value,
-                chassi: values.chassi.value
+                email: values.email.value,
+                phone: values.phone.value
             });
             setStep(2, StepperStore.getState().stepper);
         }
@@ -82,6 +95,230 @@ const RequestScheduleStepperGeneralData = ({ setStep }: any) => {
                 ))}
             </S.FormCustomRadio>
 
+            {selectedOption === 1 && (
+                <S.Container>
+                    <S.DataBlock>
+                        <Typography as="h4" type="Title6" style={{ fontSize: 20, fontWeight: 500, lineHeight: '24px', marginBottom: 24, marginTop: 24 }}>
+                            Dados do cliente
+                        </Typography>
+
+                        <S.Flex>
+                            <S.Column>
+                                <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
+                                    Nome do cliente
+                                </Typography>
+                                <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
+                                    Antonio Roberto da Costa
+                                </Typography>
+                            </S.Column>
+                            <S.Column>
+                                <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
+                                    CPF
+                                </Typography>
+                                <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
+                                    321.445.784-41
+                                </Typography>
+                            </S.Column>
+                        </S.Flex>
+                    </S.DataBlock>
+
+                    <Typography as="h4" type="Title6" style={{ fontSize: 20, fontWeight: 500, lineHeight: '24px', marginBottom: 24, marginTop: 24 }}>
+                        Contato
+                    </Typography>
+
+                    <S.Section>
+                        <S.InputContainer>
+                            <InputText
+                                invalid={!!errors.email}
+                                width={396}
+                                label="E-mail"
+                                name="email"
+                                value={values.email.value}
+                                clearField={() => clearField("email", "")}
+                                onChange={handleChange} />
+                        </S.InputContainer>
+                        <InputText
+                            invalid={!!errors.phone}
+                            width={250}
+                            label="Celular"
+                            name="phone"
+                            value={values.phone.value}
+                            clearField={() => clearField("phone", "")}
+                            onChange={handleChange} />
+                    </S.Section>
+
+                    <S.DataBlock>
+                        <Typography as="h4" type="Title6" style={{ fontSize: 20, fontWeight: 500, lineHeight: '24px', marginBottom: 24, marginTop: 24 }}>
+                            Veículo
+                        </Typography>
+
+                        <S.Flex>
+                            <S.Column>
+                                <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
+                                    Placa                            </Typography>
+                                <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
+                                    GHG2202
+                                </Typography>
+                            </S.Column>
+                            <S.Column>
+                                <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
+                                    Chassi
+                                </Typography>
+                                <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
+                                    8AGSA19907R142308
+                                </Typography>
+                            </S.Column>
+                            <S.Column>
+                                <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
+                                    Informações adicionais
+                                </Typography>
+                                <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
+                                    FIAT ARGO 1.0 6V FLEX, 5 PORTAS, GASOLINA/ALCOOL, MANUAL
+                                </Typography>
+                            </S.Column>
+                        </S.Flex>
+                    </S.DataBlock>
+
+                </S.Container>
+            )}
+
+            {selectedOption === 2 && (
+                <S.Container>
+                    <S.DataBlock>
+                        <Typography as="h4" type="Title6" style={{ fontSize: 20, fontWeight: 500, lineHeight: '24px', marginBottom: 24, marginTop: 24 }}>
+                            Dados do cliente
+                        </Typography>
+
+                        <S.Flex>
+                            <S.Column>
+                                <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
+                                    Nome do cliente
+                                </Typography>
+                                <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
+                                    Antonio Roberto da Costa
+                                </Typography>
+                            </S.Column>
+                            <S.Column>
+                                <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
+                                    CPF
+                                </Typography>
+                                <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
+                                    321.445.784-41
+                                </Typography>
+                            </S.Column>
+                        </S.Flex>
+                    </S.DataBlock>
+
+
+                    <Typography as="h4" type="Title6" style={{ fontSize: 20, fontWeight: 500, lineHeight: '24px', marginBottom: 24, marginTop: 24 }}>
+                        Contato
+                    </Typography>
+
+                    <S.Section>
+                        <S.InputContainer>
+                            <InputText
+                                invalid={!!errors.email}
+                                width={396}
+                                label="E-mail"
+                                name="email"
+                                value={values.email.value}
+                                clearField={() => clearField("email", "")}
+                                onChange={handleChange} />
+                        </S.InputContainer>
+                        <InputText
+                            invalid={!!errors.phone}
+                            width={250}
+                            label="Celular"
+                            name="phone"
+                            value={values.phone.value}
+                            clearField={() => clearField("phone", "")}
+                            onChange={handleChange} />
+                    </S.Section>
+                    <S.DataBlock>
+                        <Typography as="h4" type="Title6" style={{ fontSize: 20, fontWeight: 500, lineHeight: '24px', marginBottom: 24, marginTop: 24 }}>
+                            Endereço da proposta
+                        </Typography>
+
+                        <S.Flex>
+                            <S.Column>
+                                <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
+                                    CEP
+                                </Typography>
+                                <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
+                                    15025-100
+                                </Typography>
+                            </S.Column>
+                            <S.Column>
+                                <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
+                                    Endereço
+                                </Typography>
+                                <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
+                                    Av. Nações Unidas
+                                </Typography>
+                            </S.Column>
+                            <S.Column>
+                                <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
+                                    Bairro
+                                </Typography>
+                                <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
+                                    Centro
+                                </Typography>
+                            </S.Column>
+                            <S.Column>
+                                <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
+                                    Cidade
+                                </Typography>
+                                <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
+                                    São Paulo
+                                </Typography>
+                            </S.Column>
+                            <S.Column>
+                                <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
+                                    UF
+                                </Typography>
+                                <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
+                                    SP
+                                </Typography>
+                            </S.Column>
+                        </S.Flex>
+                    </S.DataBlock>
+
+                    <S.DataBlock>
+                        <Typography as="h4" type="Title6" style={{ fontSize: 20, fontWeight: 500, lineHeight: '24px', marginBottom: 24, marginTop: 24 }}>
+                            Veículo
+                        </Typography>
+
+                        <S.Flex>
+                            <S.Column>
+                                <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
+                                    Placa                            </Typography>
+                                <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
+                                    GHG2202
+                                </Typography>
+                            </S.Column>
+                            <S.Column>
+                                <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
+                                    Chassi
+                                </Typography>
+                                <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
+                                    8AGSA19907R142308
+                                </Typography>
+                            </S.Column>
+                            <S.Column>
+                                <Typography as="p" type="Body1" style={{ fontSize: 12, fontWeight: 400, lineHeight: '15.6px', marginBottom: 2 }}>
+                                    Informações adicionais
+                                </Typography>
+                                <Typography as="h4" type="Title6" style={{ fontSize: 16, fontWeight: 500, lineHeight: '24px' }}>
+                                    FIAT ARGO 1.0 6V FLEX, 5 PORTAS, GASOLINA/ALCOOL, MANUAL
+                                </Typography>
+                            </S.Column>
+                        </S.Flex>
+                    </S.DataBlock>
+
+                </S.Container>
+
+            )}
+
             <S.Action>
                 <Button
                     styles="ghost"
@@ -90,7 +327,16 @@ const RequestScheduleStepperGeneralData = ({ setStep }: any) => {
                     size="small"
                     onClick={() => router.back()}
                     style={{ fontSize: 16, height: 48, marginRight: 32 }} />
-            
+                <Button
+                    styles="secondary"
+                    variant="insurance"
+                    children="Anterior"
+                    size="small"
+                    iconSide="left"
+                    icon={<Icon size={20} color="primary" icon="Porto-ic-arrow-left" />}
+                    onClick={() => setSchedulePart(2)}
+                    style={{ fontSize: 16, height: 48, marginRight: 32, fontWeight: 700, lineHeight: '0' }} />
+
                 <Button
                     styles="primary"
                     variant="insurance"
@@ -101,6 +347,7 @@ const RequestScheduleStepperGeneralData = ({ setStep }: any) => {
                     onClick={nextStep}
                     style={{ fontSize: 16, height: 48, fontWeight: 700, lineHeight: '0' }} />
             </S.Action>
+
         </S.Container>
     );
 }

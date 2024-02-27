@@ -18,6 +18,21 @@ export const Section = styled.div`
 export const FormInput = styled.input`
 	
 `;
+
+export const DataBlock = styled.div`
+	margin-bottom: 38px;
+`;
+
+export const Flex = styled.div`
+	display: flex;
+`;
+
+export const Column = styled.div`
+	display: flex;
+	flex-direction: column;
+	margin-right: 32px;
+`;
+
 export const Action = styled.div`
 	display: flex;
 	justify-content: flex-end;

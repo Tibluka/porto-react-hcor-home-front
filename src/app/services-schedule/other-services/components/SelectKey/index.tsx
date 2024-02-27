@@ -9,6 +9,7 @@ import InputText from "@/components/micros/InputText";
 
 const SelectKey = () => {
     const [service, setService] = useState<SelectOptionProps>();
+    const [selectedOption, setSelectedOption] = useState(null);
 
     const [keyData, setData] = useState<any>({
         number: { value: 'BKJ-1930', errors: null, valid: false },
@@ -34,6 +35,15 @@ const SelectKey = () => {
         }
     ]);
 
+    const options = [
+        { value: 1, label: '1993/1993 CHEVROLET OMEGA SEDAN GLS 2.0 MPFI - 4 PORTAS - GASOLINA - MANUAL' },
+    ];
+
+    const handleOptionChange = (value: any) => {
+        setSelectedOption(selectedOption === value ? null : value);
+
+    };
+    
     function onClick(dispatch: React.Dispatch<SelectOptionProps>, value: SelectOptionProps) {
         dispatch(value);
     }
@@ -57,7 +67,7 @@ const SelectKey = () => {
                 />
 
                 <S.InputContainer>
-                    <InputText  width={250} label="Digite o número para fazer a busca" name="number" value={keyData.number.value} onChange={handleInputChange} />
+                    <InputText width={250} label="Digite o número para fazer a busca" name="number" value={keyData.number.value} onChange={handleInputChange} />
                 </S.InputContainer>
 
                 <Button
@@ -70,6 +80,24 @@ const SelectKey = () => {
                 />
 
             </S.Section>
+            <S.Results>
+                <S.FormCustomRadio>
+                    {options.map((option) => (
+                        <label key={option.value}>
+                            <input
+                                type="radio"
+                                value={option.value}
+                                checked={selectedOption === option.value}
+                                onChange={() => handleOptionChange(option.value)}
+                                onClick={() => handleOptionChange(option.value)}
+                            />
+                            <S.Radio selected={selectedOption === option.value}>
+                                {option.label}
+                            </S.Radio>
+                        </label>
+                    ))}
+                </S.FormCustomRadio>
+            </S.Results>
         </S.Container>
     );
 }
